@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamora Store | Premium Skincare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-white: #ffffff;
+            --secondary-beige: #f4eae1;
+            --accent-gold: #d4af37;
+            --bg-cream: #faf7f2;
+            --text-black: #111111;
+            --text-gray: #777777;
+            --luxury-gold: linear-gradient(135deg, #b38728 0%, #fbf5b7 50%, #daa520 100%);
+            --hover-rose-gold: #b76e79;
+            --font-luxury: 'Playfair Display', 'Cairo', serif;
+            --font-body: 'Poppins', 'Cairo', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-black);
+            overflow-x: hidden;
+        }
+
+        /* 1. Opening Animation / Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0b0b0b;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .splash-logo {
+            font-family: var(--font-luxury);
+            font-size: 3rem;
+            color: transparent;
+            background: var(--luxury-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s forwards ease-in-out;
+        }
+
+        .orbit-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            animation: rotateOrbit 8s linear infinite;
+        }
+
+        .orbit-circle {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            transform: rotateX(75deg);
+        }
+
+        .glow-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--luxury-gold);
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--accent-gold);
+        }
+
+        /* 2. Header & Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 1000;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-luxury);
+            font-size: 1.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+            background: var(--luxury-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-black);
+            margin: 0 15px;
+            font-size: 0.95rem;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--hover-rose-gold);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .header-icons i:hover {
+            color: var(--hover-rose-gold);
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+        /* 3. Hero Section */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            background: radial-gradient(circle at 80%, #fbf9f6 0%, var(--bg-cream) 100%);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 50%;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-luxury);
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: var(--text-black);
+        }
+
+        .hero-content p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-gold {
+            background: var(--luxury-gold);
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.4s;
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            background: var(--hover-rose-gold);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--text-black);
+            background: transparent;
+            color: var(--text-black);
+            padding: 12px 30px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--text-black);
+            color: #fff;
+        }
+
+        .hero-image-container {
+            max-width: 45%;
+            position: relative;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* 4. About Section */
+        .about-section {
+            padding: 80px 10%;
+            background: var(--primary-white);
+            text-align: center;
+            border-top: 1px solid var(--secondary-beige);
+        }
+
+        .about-title {
+            font-family: var(--font-luxury);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 10px;
+            line-height: 1.8;
+        }
+
+        /* 5. Products Grid & Skeleton */
+        .products-section {
+            padding: 60px 8%;
+        }
+
+        .section-title {
+            font-family: var(--font-luxury);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Glass Product Card */
+        .product-card {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+            border-color: var(--accent-gold);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--hover-rose-gold);
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            transition: transform 0.4s;
+            margin-bottom: 15px;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--text-black);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-price span {
+            text-decoration: line-through;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .card-btns {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card-btns button, .card-btns a {
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Skeleton Loading Style */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        .skeleton-card {
+            height: 380px;
+            border-radius: 12px;
+            background: #fff;
+            padding: 20px;
+        }
+
+        /* 6. Live Order Notification Popup */
+        #live-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-right: 4px solid var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #live-notification.show {
+            transform: translateY(0);
+        }
+
+        /* 7. Hidden Admin Dashboard Popup */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        .admin-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .admin-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .admin-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid var(--secondary-beige);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #0b0b0b;
+            color: #fff;
+            padding: 40px 5% 20px;
+            text-align: center;
+            border-top: 3px solid var(--accent-gold);
+        }
+
+        .footer-logo {
+            font-family: var(--font-luxury);
+            font-size: 2rem;
+            background: var(--luxury-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* Animations Keyframes */
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes rotateOrbit { to { transform: rotateY(360deg); } }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            header { padding: 15px 4%; }
+            nav { display: none; }
+            .hero { flex-direction: column-reverse; height: auto; padding: 40px 5%; text-align: center; gap: 30px;}
+            .hero-content { max-width: 100%; }
+            .hero-image-container { max-width: 80%; }
+            .hero-content h1 { font-size: 2.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="#splash-screen" style="display: none;"></div> <div id="splash-screen">
+        <div class="splash-logo">LAMORA STORE</div>
+        <div class="orbit-container">
+            <div class="orbit-circle"><div class="glow-particle"></div></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo" id="header-logo">LAMORA STORE</div>
+        <nav>
+            <a href="#home">الرئيسية</a>
+            <a href="#products">المنتجات</a>
+            <a href="#about">عن لامورا</a>
+            <a href="#footer">اتصلي بنا</a>
+        </nav>
+        <div class="header-icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-shopping-bag"></i>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Reveal Your Natural Beauty</h1>
+            <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى.</p>
+            <div class="hero-btns">
+                <a href="#products" class="btn-gold">تسوقي الآن</a>
+                <button class="btn-outline">اكتشفي المجموعة</button>
+            </div>
+        </div>
+        <div class="hero-image-container">
+            <img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?auto=format&fit=crop&w=600&q=80" alt="Premium Product">
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <h2 class="about-title">عن Lamora Store</h2>
+        <p class="about-text">
+            في Lamora Store، نؤمن أن البشرة النضرة ليست مجرد مظهر، بل هي انعكاس لثقتكِ الداخلية. تأسس البراند برؤية وشغف من الأستاذة <strong>رواء محمد</strong>، لتقديم تجربة عناية استثنائية تضاهي المنتجات العالمية.
+        </p>
+        <p class="about-text" style="font-style: italic; color: var(--accent-gold);">
+            "نحن لا نبيع مجرد مستحضرات، بل ننتقي لكِ بعناية فائقة تركيبات فاخرة غنية بالمكونات الطبيعية الفعالة لتعيد لبشرتكِ توهجها الطبيعي."
+        </p>
+    </section>
+
+    <section class="products-section" id="products">
+        <h2 class="section-title">المجموعة الفاخرة المميزة</h2>
+        
+        <div class="products-grid" id="skeleton-container">
+            <div class="skeleton-card skeleton"></div>
+            <div class="skeleton-card skeleton"></div>
+            <div class="skeleton-card skeleton"></div>
+        </div>
+
+        <div class="products-grid" id="real-products" style="display: none;">
+            
+            <div class="product-card">
+                <span class="product-badge">SALE</span>
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" alt="Serum">
+                <div class="product-name">سيروم الذهب والنضارة الملكي</div>
+                <div class="product-price">450 ج.م <span>650 ج.م</span></div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20سيروم%20الذهب%20والنضارة%20الملكي" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="product-badge">الأكثر مبيعاً</span>
+                <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" alt="Cream">
+                <div class="product-name">كريم الترطيب المخملي الشامل</div>
+                <div class="product-price">390 ج.م</div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20كريم%20الترطيب%20المخملي%20الشامل" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="product-badge">جديد</span>
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Facial Wash">
+                <div class="product-name">غسول رغوي مهدئ للبشرة</div>
+                <div class="product-price">320 ج.م <span>400 ج.م</span></div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20غسول%20رغوي%20مهدئ%20للبشرة" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="live-notification">
+        <i class="fas fa-shopping-bag" style="color: var(--accent-gold); font-size: 1.3rem;"></i>
+        <div id="notification-text">يقوم أحد العملاء بتصفح الموقع الآن...</div>
+    </div>
+
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-box">
+            <h3 style="font-family: var(--font-luxury); margin-bottom: 10px;">لوحة التحكم السرية</h3>
+            <p style="font-size: 0.85rem; color: var(--text-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard</p>
+            <input type="password" id="adminPass" placeholder="••••••">
+            <button class="btn-gold" style="width:100%;" onclick="checkAdminPassword()">دخول</button>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="footer-logo">LAMORA STORE</div>
+        <p style="color: var(--secondary-beige); font-size: 0.9rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
+        <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">للتواصل المباشر: 01554369459</p>
+        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
+        <p style="font-size: 0.8rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة لمديرة البراند أ/ رواء محمد</p>
+    </footer>
+
+    <script>
+        // A. Handling Splash Screen
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.display = 'none', 800);
+            }, 4000); // يستغرق 4 ثوانٍ ليعطي انطباع الفخامة والأناقة
+
+            // B. Handling Mock Loading / Skeleton
+            setTimeout(() => {
+                document.getElementById('skeleton-container').style.display = 'none';
+                document.getElementById('real-products').style.display = 'grid';
+            }, 5500);
+        });
+
+        // C. Live Social Proof (تغيير الزيارات والمحافظات كل 10 ثوانٍ)
+        const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.', 'رنا ط.', 'نور هـ.'];
+        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الأسماعيلية'];
+        const products = ['سيروم الذهب الملكي', 'كريم الترطيب المخملي', 'مجموعة النضارة المتكاملة', 'غسول رغوي مهدئ'];
+        
+        function showLiveNotification() {
+            const notification = document.getElementById('live-notification');
+            const textEl = document.getElementById('notification-text');
+            
+            // اختيار بيانات عشوائية
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            const randomProduct = products[Math.floor(Math.random() * products.length)];
+            const randomNum = Math.floor(100 + Math.random() * 900);
+
+            const templates = [
+                `✨ اشترت أستاذة (${randomName} من ${randomCity} - 010***${randomNum}) "${randomProduct}" قبل قليل.`,
+                `🔥 عميل من (${randomCity}) يقوم بتصفح "${randomProduct}" الآن.`,
+                `⭐ قيمت أستاذة (${randomName}) بخمس نجوم: "المنتج رائع وفرق في نضارة بشرتي جداً!"`
+            ];
+
+            textEl.innerHTML = templates[Math.floor(Math.random() * templates.length)];
+            notification.classList.add('show');
+
+            // إخفاء بعد 4 ثوانٍ
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // تشغيل الإشعار التفاعلي المتكرر كل 10 ثوانٍ
+        setInterval(showLiveNotification, 10000);
+
+        // D. Hidden Admin Easter Egg (الضغط 3 مرات متتالية)
+        let clickCount = 0;
+        const logoBtn = document.getElementById('header-logo');
+        
+        logoBtn.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 3) {
+                document.getElementById('adminModal').classList.add('open');
+                clickCount = 0; // إعادة التصفير
+            }
+            // تصفير العداد التلقائي إذا لم تكن الضغطات متتالية سريعة
+            setTimeout(() => { clickCount = 0; }, 2000);
+        });
+
+        function checkAdminPassword() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === "772007") {
+                alert("تم التحقق بنجاح! جاري تحويلك إلى لوحة تحكم Firebase المربوطة بـ Amr Group.");
+                document.getElementById('adminModal').classList.remove('open');
+                // هنا يتم وضع كود فتح الـ Dashboard أو التوجيه لها لاحقاً
+            } else {
+                alert("رمز المرور غير صحيح!");
+            }
+        }
+
+        // إغلاق المودال عند الضغط في الخارج
+        window.onclick = function(event) {
+            const modal = document.getElementById('adminModal');
+            if (event.target == modal) {
+                modal.classList.remove('open');
+            }
+        }
+    </script>
+</body>
+</html>
