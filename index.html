@@ -96,7 +96,6 @@
             border: 2px solid var(--accent-gold);
             object-fit: cover;
             box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
-            transition: transform 0.5s;
         }
 
         /* توزيع متباعد واحترافي لـ 6 منتجات حقيقية في دائرة واسعة */
@@ -249,7 +248,7 @@
             border: 2px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* 4. Executive About Section (تفاصيل فخمة عن أ/ رواء) */
+        /* 4. Executive About Section */
         .about-section {
             padding: 100px 10%;
             background: var(--primary-white);
@@ -780,7 +779,7 @@
     </footer>
 
     <script>
-        // المنتجات الافتراضية بصور حقيقية تفتح النفس والأسعار
+        // روابط صور بديلة ومستقرة تماماً وعالية الجودة تضمن الظهور الفوري
         const initialProducts = [
             { name: 'سيروم الذهب والنضارة الملكي', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80', desc: 'تركيبة ذهبية فاخرة لإعادة الحيوية والنعومة وحماية حاجز البشرة الطبيعي.', price: 450, oldPrice: 650, category: 'skin', badge: 'SALE' },
             { name: 'كريم الترطيب المخملي الشامل', img: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=500&q=80', desc: 'كريم مرطب غني بالهيدروليك أسيد لترطيب فائق يدوم طوال اليوم وبشرة ممتلئة.', price: 390, oldPrice: null, category: 'skin', badge: 'الأكثر مبيعاً' },
@@ -795,17 +794,15 @@
 
         let currentFilter = 'all';
 
-        // الـ Splash screen الأنيق الذي ينقلب ويفتح المتجر بعد 5 ثوانٍ
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.classList.add('exit');
-            }, 5000); // 5 ثوانٍ بالتمام
+            }, 5000);
 
             renderProducts();
         });
 
-        // رندرة المنتجات والتحويل المباشر والآمن للواتساب
         function renderProducts() {
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
             const grid = document.getElementById('real-products');
@@ -848,7 +845,7 @@
         }
 
         // إشعارات حية عشوائية ذكية
-        const names = ['أستاذة إيمان س.', 'أستاذة نورهان م.', 'دكتورة هناء ط.', 'أستاذة ميار ع.', 'أستاذة جيهان ف.'];
+        const names = ['أستاذة إيمان س.', 'أستاذة nورهان م.', 'دكتورة هناء ط.', 'أستاذة ميار ع.', 'أستاذة جيهان ف.'];
         const cities = ['القاهرة', 'الإسكندرية', 'المنصورة', 'الجيزة', 'طنطا'];
         function showLiveNotification() {
             const notification = document.getElementById('live-notification');
@@ -867,7 +864,7 @@
         }
         setInterval(showLiveNotification, 12000);
 
-        // تشغيل الـ Admin (الضغط 3 مرات متتالية على اللوجو العالي)
+        // تشغيل الـ Admin
         let clicks = 0;
         document.getElementById('header-logo').addEventListener('click', () => {
             clicks++;
@@ -893,7 +890,6 @@
             document.getElementById('adminPass').value = '';
         }
 
-        // إدارة لوحة التحكم الفورية بالكامل
         function renderManagerList() {
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
             const listContainer = document.getElementById('manager-list');
