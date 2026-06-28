@@ -37,51 +37,79 @@
             overflow-x: hidden;
         }
 
-        /* 1. Splash Screen */
+        /* 1. Premium 3D Splash Screen */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #090909;
+            background: #060606;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s ease, visibility 1s;
+            perspective: 1000px;
+            transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        #splash-screen.exit {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.1) rotateY(180deg);
         }
 
         .splash-logo {
             font-family: var(--font-luxury);
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 700;
             color: transparent;
             background: var(--luxury-gold);
             -webkit-background-clip: text;
             background-clip: text;
-            letter-spacing: 6px;
-            margin-bottom: 30px;
+            letter-spacing: 8px;
+            z-index: 2;
             text-align: center;
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
-        .luxury-loader {
-            width: 50px;
-            height: 50px;
-            border: 2px solid transparent;
-            border-top: 2px solid var(--accent-gold);
-            border-bottom: 2px solid var(--accent-gold);
-            border-radius: 50%;
-            animation: spinLoader 1.5s linear infinite;
+        /* 3. Ring of Real Products Rotating in 3D */
+        .product-ring {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transform-style: preserve-3d;
+            animation: rotateRing 8s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        .ring-item {
+            position: absolute;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid var(--accent-gold);
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+        }
+
+        /* توزيع 6 منتجات حقيقية تدور حول الاسم ثلاثي الأبعاد */
+        .ring-item:nth-child(1) { transform: rotateY(0deg) translateZ(180px); }
+        .ring-item:nth-child(2) { transform: rotateY(60deg) translateZ(180px); }
+        .ring-item:nth-child(3) { transform: rotateY(120deg) translateZ(180px); }
+        .ring-item:nth-child(4) { transform: rotateY(180deg) translateZ(180px); }
+        .ring-item:nth-child(5) { transform: rotateY(240deg) translateZ(180px); }
+        .ring-item:nth-child(6) { transform: rotateY(30deg) translateZ(180px); }
 
         /* 2. Header & Navigation */
         header {
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(212, 175, 55, 0.15);
@@ -113,7 +141,7 @@
             transition: color 0.3s;
         }
 
-        nav a:hover, nav a.active {
+        nav a:hover {
             color: var(--hover-rose-gold);
         }
 
@@ -136,7 +164,7 @@
 
         /* 3. Hero Section */
         .hero {
-            min-height: 80vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -208,34 +236,14 @@
         }
 
         .hero-image-container {
-            max-width: 40%;
-            display: flex;
-            justify-content: center;
-            position: relative;
+            max-width: 45%;
         }
 
-        /* تم استبدال الرابط بـ CSS راقي لضمان الظهور الفوري وعين المشاهد */
-        .premium-product-placeholder {
-            width: 320px;
-            height: 420px;
-            background: linear-gradient(45deg, #f3ede4, #ffffff);
-            border-radius: 150px 150px 20px 20px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
-            border: 2px solid rgba(212, 175, 55, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        .hero-image-container img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             animation: float 4s ease-in-out infinite;
-        }
-
-        .premium-product-placeholder i {
-            font-size: 5rem;
-            background: var(--luxury-gold);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 20px;
         }
 
         /* 4. About Section */
@@ -260,7 +268,7 @@
             line-height: 2;
         }
 
-        /* 5. Categories & Filters */
+        /* 5. Categories Filters */
         .filter-container {
             display: flex;
             justify-content: center;
@@ -272,7 +280,7 @@
         .filter-btn {
             background: white;
             border: 1px solid rgba(0,0,0,0.05);
-            padding: 10px 25px;
+            padding: 12px 30px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
@@ -291,15 +299,15 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 35px;
         }
 
         .product-card {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             border: 1px solid rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            border-radius: 16px;
+            border-radius: 20px;
             padding: 25px;
             text-align: center;
             position: relative;
@@ -312,7 +320,7 @@
 
         .product-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.12);
+            box-shadow: 0 25px 45px rgba(212, 175, 55, 0.15);
             border-color: var(--accent-gold);
         }
 
@@ -322,51 +330,52 @@
             right: 20px;
             background: var(--hover-rose-gold);
             color: white;
-            padding: 5px 12px;
+            padding: 5px 14px;
             font-size: 0.8rem;
             border-radius: 20px;
             font-weight: 700;
+            z-index: 5;
         }
 
         .product-img-wrapper {
             width: 100%;
-            height: 220px;
-            background: #fff;
-            border-radius: 12px;
+            height: 250px;
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 20px;
             overflow: hidden;
-        }
-
-        .product-img-wrapper i {
-            font-size: 4rem;
-            color: var(--secondary-beige);
+            background: #fff;
         }
 
         .product-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.08);
         }
 
         .product-name {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--text-black);
         }
 
         .product-desc {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: var(--text-gray);
             margin-bottom: 15px;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .product-price {
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             font-weight: 700;
             color: var(--text-black);
             margin-bottom: 20px;
@@ -382,16 +391,16 @@
         /* 7. Skeleton Loading */
         .skeleton-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
             gap: 35px;
         }
 
         .skeleton-card {
-            height: 420px;
+            height: 450px;
             background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
             background-size: 200% 100%;
             animation: loadingAnimation 1.5s infinite;
-            border-radius: 16px;
+            border-radius: 20px;
         }
 
         /* 8. Live Order Notification Pop */
@@ -410,21 +419,21 @@
             gap: 15px;
             transform: translateY(200%);
             transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 380px;
+            max-width: 390px;
         }
 
         #live-notification.show {
             transform: translateY(0);
         }
 
-        /* 9. Interactive Full Dashboard Modal */
+        /* 9. Dashboard Modal Layout */
         .admin-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.75);
             backdrop-filter: blur(8px);
             z-index: 3000;
             display: flex;
@@ -443,9 +452,9 @@
         .admin-box {
             background: white;
             padding: 40px;
-            border-radius: 16px;
+            border-radius: 20px;
             width: 95%;
-            max-width: 900px;
+            max-width: 950px;
             max-height: 90vh;
             overflow-y: auto;
             border: 1px solid var(--accent-gold);
@@ -456,7 +465,7 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             cursor: pointer;
             color: var(--text-gray);
         }
@@ -485,7 +494,7 @@
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
-            padding: 10px;
+            padding: 11px;
             border: 1px solid var(--secondary-beige);
             border-radius: 6px;
             font-family: var(--font-body);
@@ -494,7 +503,7 @@
         .product-manager-list {
             border-top: 1px solid var(--secondary-beige);
             padding-top: 20px;
-            max-height: 300px;
+            max-height: 350px;
             overflow-y: auto;
         }
 
@@ -502,7 +511,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
+            padding: 12px;
             background: var(--bg-cream);
             margin-bottom: 10px;
             border-radius: 6px;
@@ -510,16 +519,16 @@
 
         .manager-actions i {
             cursor: pointer;
-            margin-right: 10px;
+            margin-right: 12px;
             font-size: 1.1rem;
         }
 
-        .manager-actions .fa-trash { color: red; }
-        .manager-actions .fa-edit { color: blue; }
+        .manager-actions .fa-trash { color: #dc3545; }
+        .manager-actions .fa-edit { color: #007bff; }
 
         /* Footer */
         footer {
-            background: #090909;
+            background: #060606;
             color: #fff;
             padding: 60px 8% 30px;
             text-align: center;
@@ -538,10 +547,13 @@
 
         /* Keyframes */
         @keyframes pulseGlow {
-            0%, 100% { filter: drop-shadow(0 0 5px rgba(212,175,55,0.3)); }
-            50% { filter: drop-shadow(0 0 20px rgba(212,175,55,0.7)); }
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(212,175,55,0.4)); }
+            50% { filter: drop-shadow(0 0 25px rgba(212,175,55,0.8)); }
         }
-        @keyframes spinLoader { to { transform: rotate(360deg); } }
+        @keyframes rotateRing {
+            0% { transform: rotateY(0deg) rotateX(15deg); }
+            100% { transform: rotateY(360deg) rotateX(15deg); }
+        }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
@@ -556,8 +568,8 @@
             nav { display: none; }
             .hero { flex-direction: column-reverse; text-align: center; gap: 40px; padding: 40px 4%; }
             .hero-content { max-width: 100%; }
-            .hero-image-container { max-width: 100%; }
-            .hero-content h1 { font-size: 2.5rem; }
+            .hero-image-container { max-width: 90%; }
+            .hero-content h1 { font-size: 2.6rem; }
         }
     </style>
 </head>
@@ -565,13 +577,20 @@
 
     <div id="splash-screen">
         <div class="splash-logo">LAMORA STORE</div>
-        <div class="luxury-loader"></div>
+        <div class="product-ring">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1608248597481-496100c8c836?w=150&q=80">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=150&q=80">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=150&q=80">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1556228720-195a672e8a03?w=150&q=80">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1617897903246-719242758050?w=150&q=80">
+            <img class="ring-item" src="https://images.unsplash.com/photo-1608247764176-557e9a99343b?w=150&q=80">
+        </div>
     </div>
 
     <header>
         <div class="logo" id="header-logo">LAMORA</div>
         <nav>
-            <a href="#home" class="active">الرئيسية</a>
+            <a href="#home">الرئيسية</a>
             <a href="#products">المنتجات</a>
             <a href="#about">عن لامورا</a>
             <a href="#footer">اتصلي بنا</a>
@@ -589,15 +608,11 @@
             <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى.</p>
             <div class="hero-btns">
                 <a href="#products" class="btn-gold">تسوقي الآن <i class="fas fa-arrow-left"></i></a>
-                <a href="#about" class="btn-outline">اكتشفي قصة البراند</a>
+                <a href="#about" class="btn-outline">قصة البراند</a>
             </div>
         </div>
         <div class="hero-image-container">
-            <div class="premium-product-placeholder">
-                <i class="fas fa-sparkles"></i>
-                <span style="font-family: var(--font-luxury); font-size: 1.5rem; font-weight: 700; color: var(--accent-gold);">LAMORA PREMIUM</span>
-                <span style="font-size: 0.9rem; color: var(--text-gray); margin-top: 5px;">Elevate Your Glow</span>
-            </div>
+            <img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?auto=format&fit=crop&w=600&q=80" alt="Lamora Premium Brand">
         </div>
     </section>
 
@@ -647,7 +662,7 @@
         <div class="admin-box" id="dashboardBox" style="display: none;">
             <i class="fas fa-times close-dashboard" onclick="closeAdminModal()"></i>
             <h2>لوحة إدارة Lamora Store المربوطة بالشاشات الخارجية</h2>
-            <p style="color: var(--text-gray); margin-bottom: 20px;">يمكنك إضافة منتجات جديدة أو تعديل وحذف الحالي وسيظهر فوراً بالموقع بدون ريفريش</p>
+            <p style="color: var(--text-gray); margin-bottom: 20px;">تعديل، إضافة وحذف المنتجات فورياً بدون ريفريش</p>
             
             <div class="dashboard-layout">
                 <div>
@@ -658,15 +673,19 @@
                         <input type="text" id="prod-name" placeholder="مثال: سيروم الذهب">
                     </div>
                     <div class="form-group">
-                        <label>وصف قصير</label>
-                        <textarea id="prod-desc" rows="2" placeholder="اكتب ميزات المنتج الفاخرة..."></textarea>
+                        <label>رابط صورة حقيقية للمنتج (URL)</label>
+                        <input type="text" id="prod-img" placeholder="ضع رابط الصورة هنا">
+                    </div>
+                    <div class="form-group">
+                        <label>وصف المنتج الفاخر</label>
+                        <textarea id="prod-desc" rows="2" placeholder="مواصفات ومكونات المنتج..."></textarea>
                     </div>
                     <div class="form-group">
                         <label>السعر الحالي (ج.م)</label>
                         <input type="number" id="prod-price" placeholder="450">
                     </div>
                     <div class="form-group">
-                        <label>السعر قبل الخصم (اختياري)</label>
+                        <label>السعر قبل الخصم</label>
                         <input type="number" id="prod-old-price" placeholder="650">
                     </div>
                     <div class="form-group">
@@ -678,16 +697,15 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>شارة المنتج (Badge)</label>
-                        <input type="text" id="prod-badge" placeholder="مثال: SALE أو الأكثر مبيعاً">
+                        <label>الشارة (Badge)</label>
+                        <input type="text" id="prod-badge" placeholder="SALE أو الأكثر مبيعاً">
                     </div>
-                    <button class="btn-gold" id="save-btn" style="width: 100%; justify-content: center;" onclick="saveProduct()">نشر المنتج فوراً للمشاهدين</button>
+                    <button class="btn-gold" id="save-btn" style="width: 100%; justify-content: center;" onclick="saveProduct()">نشر المنتج للمشاهدين فوراً</button>
                 </div>
 
                 <div>
                     <h3 style="margin-bottom: 15px;">المنتجات المعروضة حالياً</h3>
-                    <div class="product-manager-list" id="manager-list">
-                        </div>
+                    <div class="product-manager-list" id="manager-list"></div>
                 </div>
             </div>
         </div>
@@ -697,41 +715,41 @@
         <div class="footer-logo">LAMORA STORE</div>
         <p style="color: var(--secondary-beige); font-size: 1rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
         <p style="font-size: 0.9rem; color: var(--text-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
-        <p style="font-size: 1rem; margin-bottom: 20px; font-weight: bold;">للتواصل والطلبات المباشرة: 01554369459</p>
+        <p style="font-size: 1rem; margin-bottom: 20px; font-weight: bold;">للطلبات والتواصل المباشر: 01554369459</p>
         <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
         <p style="font-size: 0.85rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة لمديرة البراند أ/ رواء محمد</p>
     </footer>
 
     <script>
-        // 1. قاعدة البيانات الافتراضية الأولية المخزنة محلياً لضمان العمل الاحترافي الفوري للموقع
-        const defaultProducts = [
-            { name: 'سيروم الذهب والنضارة الملكي', desc: 'تركيبة غنية بجزيئات الذهب الخالص لترطيب البشرة وإعادة الحيوية واللمعان الملكي لها.', price: 450, oldPrice: 650, category: 'skin', badge: 'SALE' },
-            { name: 'كريم الترطيب المخملي الشامل', desc: 'كريم غني بحمض الهيدروليك يمنح خلايا البشرة ترطيباً فائقاً يمتد لـ 24 ساعة متواصلة.', price: 390, oldPrice: null, category: 'skin', badge: 'الأكثر مبيعاً' },
-            { name: 'غسول رغوي مهدئ ومطهر للبشرة', desc: 'ينظف المسام بعمق ويزيل الشوائب والزيوت الزائدة دون تجفيف حاجز البشرة الطبيعي.', price: 320, oldPrice: 400, category: 'skin', badge: 'جديد' }
+        // قاعدة البيانات الافتراضية المليئة بصور حقيقية فاخرة (مقسمة للأقسام الثلاثة)
+        const initialProducts = [
+            { name: 'سيروم الذهب والنضارة الملكي', img: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500&q=80', desc: 'تركيبة ذهبية فاخرة لإعادة الحيوية والنعومة وحماية حاجز البشرة الطبيعي.', price: 450, oldPrice: 650, category: 'skin', badge: 'SALE' },
+            { name: 'كريم الترطيب المخملي الشامل', img: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=500&q=80', desc: 'كريم مرطب غني بالهيدروليك أسيد لترطيب فائق يدوم طوال اليوم.', price: 390, oldPrice: null, category: 'skin', badge: 'الأكثر مبيعاً' },
+            { name: 'زيت اللافندر العضوي لترميم الشعر', img: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=500&q=80', desc: 'يغذي بصيلات الشعر من الجذور ويمنحه لمعاناً وقوة مخملية ساحرة.', price: 520, oldPrice: 700, category: 'hair', badge: 'جديد' },
+            { name: 'مقشر القهوة الفاخر لشد وتنعيم الجسم', img: 'https://images.unsplash.com/photo-1608247764176-557e9a99343b?w=500&q=80', desc: 'مزيج طبيعي فاخر لتقشير الخلايا الميتة وتنشيط الدورة الدموية للجسم.', price: 340, oldPrice: 420, category: 'body', badge: 'SALE' }
         ];
 
         if(!localStorage.getItem('lamora_products')) {
-            localStorage.setItem('lamora_products', JSON.stringify(defaultProducts));
+            localStorage.setItem('lamora_products', JSON.stringify(initialProducts));
         }
 
         let currentFilter = 'all';
 
-        // 2. التحكم بشاشات التحميل و الـ Splash Screen
+        // إدارة الـ Splash screen والأنيميشن الاحترافي (5 ثوانٍ كاملة)
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(() => splash.style.display = 'none', 1000);
-            }, 5000); // 5 ثوانٍ كاملة روقان وفخامة
+                splash.classList.add('exit');
+            }, 5000);
 
             setTimeout(() => {
                 document.getElementById('skeleton-container').style.display = 'none';
                 document.getElementById('real-products').style.display = 'grid';
                 renderProducts();
-            }, 6500);
+            }, 6200);
         });
 
-        // 3. دالة رندرة وعرض المنتجات حسب الفلتر المختار
+        // رندرة وحقن كروت المنتجات مع ربط مباشر ومؤكد بالواتساب والرسائل المؤتمتة
         function renderProducts() {
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
             const grid = document.getElementById('real-products');
@@ -739,22 +757,17 @@
 
             const filtered = products.filter(p => currentFilter === 'all' || p.category === currentFilter);
 
-            if(filtered.length === 0) {
-                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:var(--text-gray); padding: 40px 0;">لا توجد منتجات متوفرة في هذا القسم حالياً.</p>`;
-                return;
-            }
-
             filtered.forEach(p => {
                 const badgeHTML = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
                 const oldPriceHTML = p.oldPrice ? `<span>${p.oldPrice} ج.م</span>` : '';
-                const encodedMsg = encodeURIComponent(`مرحباً Lamora Store، أود طلب منتج: ${p.name} بسعر ${p.price} ج.م`);
+                const encodedMsg = encodeURIComponent(`مرحباً مبيعات Lamora Store الفاخرة، أود طلب المنتج التالي:\n- الاسم: ${p.name}\n- السعر: ${p.price} ج.م\nأرجو تأكيد طلب الشحن بالبيانات.`);
                 
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
                     ${badgeHTML}
                     <div class="product-img-wrapper">
-                        <i class="fas fa-spa"></i>
+                        <img src="${p.img || 'https://images.unsplash.com/photo-1608248597481-496100c8c836?w=500&q=80'}" alt="${p.name}">
                     </div>
                     <div>
                         <div class="product-name">${p.name}</div>
@@ -763,7 +776,7 @@
                     <div>
                         <div class="product-price">${p.price} ج.م ${oldPriceHTML}</div>
                         <div class="card-btns">
-                            <a href="https://wa.me/201554369459?text=${encodedMsg}" target="_blank" class="btn-gold" style="width:100%; justify-content:center;"><i class="fab fa-whatsapp"></i> طلب سريع عبر الواتساب</a>
+                            <a href="https://wa.me/201554369459?text=${encodedMsg}" target="_blank" class="btn-gold" style="width:100%; justify-content:center;"><i class="fab fa-whatsapp"></i> طلب مباشر عبر واتساب</a>
                         </div>
                     </div>
                 `;
@@ -771,7 +784,6 @@
             });
         }
 
-        // 4. نظام الفلترة للأقسام
         function filterCategory(cat) {
             currentFilter = cat;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -779,15 +791,13 @@
             renderProducts();
         }
 
-        // 5. الإشعارات الحية التفاعلية الذكية
-        const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.', 'رنا ط.', 'نور هـ.', 'أميرة س.', 'مي الرشيدي'];
-        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الإسماعيلية', 'أسيوط', 'بورسعيد'];
-        
+        // إشعارات حية عشوائية ذكية
+        const names = ['أستاذة إيمان س.', 'أستاذة نورهان م.', 'دكتورة هناء ط.', 'أستاذة ميار ع.', 'أستاذة جيهان ف.'];
+        const cities = ['القاهرة', 'الإسكندرية', 'المنصورة', 'الجيزة', 'طنطا'];
         function showLiveNotification() {
             const notification = document.getElementById('live-notification');
             const textEl = document.getElementById('notification-text');
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
-            
             if(products.length === 0) return;
 
             const randomName = names[Math.floor(Math.random() * names.length)];
@@ -795,55 +805,43 @@
             const randomProduct = products[Math.floor(Math.random() * products.length)].name;
             const randomNum = Math.floor(100 + Math.random() * 900);
 
-            const templates = [
-                `✨ اشترت أستاذة (${randomName} من ${randomCity} - 015***${randomNum}) "${randomProduct}" قبل قليل.`,
-                `🔥 عميلة من محافظة (${randomCity}) تتصفح الآن وتراجع مكونات "${randomProduct}".`,
-                `⭐ قيمت أستاذة (${randomName}) بخمس نجوم: "المنتج جودته خيالية وفرق في بشرتي جداً!"`
-            ];
-
-            textEl.innerHTML = templates[Math.floor(Math.random() * templates.length)];
+            textEl.innerHTML = `✨ اشترت ${randomName} من (${randomCity} - 015***${randomNum}) المنتج الفاخر: "${randomProduct}" قبل دقيقتين.`;
             notification.classList.add('show');
-
             setTimeout(() => { notification.classList.remove('show'); }, 4500);
         }
-        setInterval(showLiveNotification, 10000);
+        setInterval(showLiveNotification, 12000);
 
-        // 6. تشغيل الـ Easter Egg والضغط 3 مرات متتالية لفتح الـ Admin
-        let clickCount = 0;
+        // تشغيل ميزة الـ Easter Egg (الضغط 3 مرات متتالية) لفتح الإدارة
+        let clicks = 0;
         document.getElementById('header-logo').addEventListener('click', () => {
-            clickCount++;
-            if (clickCount === 3) {
+            clicks++;
+            if (clicks === 3) {
                 document.getElementById('adminModal').classList.add('open');
-                clickCount = 0;
+                clicks = 0;
             }
-            setTimeout(() => { clickCount = 0; }, 2000);
+            setTimeout(() => { clicks = 0; }, 2000);
         });
 
         function checkAdminPassword() {
-            const pass = document.getElementById('adminPass').value;
-            if(pass === "772007") {
+            if(document.getElementById('adminPass').value === "772007") {
                 document.getElementById('loginBox').style.display = "none";
                 document.getElementById('dashboardBox').style.display = "block";
                 renderManagerList();
-            } else {
-                alert("رمز المرور غير صحيح!");
-            }
+            } else { alert("رمز المرور غير صحيح!"); }
         }
 
         function closeAdminModal() {
             document.getElementById('adminModal').classList.remove('open');
-            // إعادة تعيين النوافذ لضمان الأمان عند الإغلاق
             document.getElementById('loginBox').style.display = "block";
             document.getElementById('dashboardBox').style.display = "none";
             document.getElementById('adminPass').value = '';
         }
 
-        // 7. إدارة المنتجات داخل لوحة التحكم الشغالة بالكامل (CRUD Operations)
+        // العمليات الكاملة للوحة التحكم والتحكم الفوري بالمتجر والواجهة
         function renderManagerList() {
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
             const listContainer = document.getElementById('manager-list');
             listContainer.innerHTML = '';
-
             products.forEach((p, index) => {
                 const item = document.createElement('div');
                 item.className = 'manager-item';
@@ -860,6 +858,7 @@
 
         function saveProduct() {
             const name = document.getElementById('prod-name').value;
+            const img = document.getElementById('prod-img').value;
             const desc = document.getElementById('prod-desc').value;
             const price = parseFloat(document.getElementById('prod-price').value);
             const oldPrice = parseFloat(document.getElementById('prod-old-price').value) || null;
@@ -867,51 +866,43 @@
             const badge = document.getElementById('prod-badge').value;
             const editIndex = document.getElementById('edit-index').value;
 
-            if(!name || !price) {
-                alert("يرجى ملء اسم المنتج والسعر على الأقل!");
-                return;
-            }
+            if(!name || !price) { alert("يرجى إدخال اسم المنتج والسعر الأساسي!"); return; }
 
             let products = JSON.parse(localStorage.getItem('lamora_products')) || [];
-            const productData = { name, desc, price, oldPrice, category, badge };
+            const productData = { name, img, desc, price, oldPrice, category, badge };
 
             if(editIndex !== "") {
-                // وضع التعديل الحالي
                 products[parseInt(editIndex)] = productData;
                 document.getElementById('edit-index').value = "";
                 document.getElementById('form-title').innerText = "إضافة منتج جديد";
-                document.getElementById('save-btn').innerText = "نشر المنتج فوراً للمشاهدين";
-            } else {
-                // منتج جديد بالكامل
-                products.push(productData);
-            }
+                document.getElementById('save-btn').innerText = "نشر المنتج للمشاهدين فوراً";
+            } else { products.push(productData); }
 
             localStorage.setItem('lamora_products', JSON.stringify(products));
             
-            // تنظيف الحقول فوراً
             document.getElementById('prod-name').value = '';
+            document.getElementById('prod-img').value = '';
             document.getElementById('prod-desc').value = '';
             document.getElementById('prod-price').value = '';
             document.getElementById('prod-old-price').value = '';
             document.getElementById('prod-badge').value = '';
 
             renderManagerList();
-            renderProducts(); // حقن وتحديث الواجهة الخارجية للمشاهدين فوراً
-            alert("تم حفظ البيانات بنجاح وتحديث المتجر بالواجهة الخارجية!");
+            renderProducts();
+            alert("تم التحديث الفوري ونشر المنتج بنجاح أمام المشاهدين!");
         }
 
         function loadEditProduct(index) {
             const products = JSON.parse(localStorage.getItem('lamora_products')) || [];
             const p = products[index];
-
             document.getElementById('prod-name').value = p.name;
+            document.getElementById('prod-img').value = p.img || '';
             document.getElementById('prod-desc').value = p.desc;
             document.getElementById('prod-price').value = p.price;
             document.getElementById('prod-old-price').value = p.oldPrice || '';
             document.getElementById('prod-category').value = p.category;
             document.getElementById('prod-badge').value = p.badge || '';
             document.getElementById('edit-index').value = index;
-
             document.getElementById('form-title').innerText = "تعديل المنتج الحالي";
             document.getElementById('save-btn').innerText = "حفظ التعديلات ونشرها";
         }
@@ -922,16 +913,11 @@
                 products.splice(index, 1);
                 localStorage.setItem('lamora_products', JSON.stringify(products));
                 renderManagerList();
-                renderProducts(); // تحديث فوري للموقع أمام المشاهدين
+                renderProducts();
             }
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('adminModal');
-            if (event.target == modal) {
-                closeAdminModal();
-            }
-        }
+        window.onclick = function(e) { if (e.target == document.getElementById('adminModal')) closeAdminModal(); }
     </script>
 </body>
-    </html>
+</html>
