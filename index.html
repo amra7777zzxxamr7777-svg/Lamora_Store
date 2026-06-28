@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lamora Store | Premium Luxury Skincare</title>
+    <title>Lamora Store | Premium Skincare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -16,10 +16,11 @@
             --accent-gold: #d4af37;
             --bg-cream: #faf7f2;
             --text-black: #111111;
-            --text-gray: #666666;
+            --text-gray: #777777;
             --luxury-gold: linear-gradient(135deg, #b38728 0%, #fbf5b7 50%, #daa520 100%);
+            --hover-rose-gold: #b76e79;
             --font-luxury: 'Playfair Display', 'Cairo', serif;
-            --font-body: 'Cairo', sans-serif;
+            --font-body: 'Poppins', 'Cairo', sans-serif;
         }
 
         * {
@@ -36,131 +37,74 @@
             overflow-x: hidden;
         }
 
-        /* 1. Cinematic Splash Screen (علب حقيقية تقطر وتكتب اسم البراند) */
+        /* 1. Opening Animation / Splash Screen */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #050505;
+            background: #0b0b0b;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            perspective: 2000px;
-            transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            transition: opacity 0.8s ease, visibility 0.8s;
         }
 
-        #splash-screen.exit {
-            opacity: 0;
-            visibility: hidden;
-            transform: scale(1.1) translateY(-100%);
-        }
-
-        .animation-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* العلب الفاخرة المتقاطرة في الأعلى */
-        .premium-bottles {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            animation: floatBottles 3s ease-in-out infinite;
-        }
-
-        .bottle-svg {
-            width: 50px;
-            height: 90px;
-            filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.3));
-        }
-
-        /* قطرات الجل الذهبية المتحركة الحية */
-        .fluid-drop {
-            width: 10px;
-            height: 10px;
-            background: var(--luxury-gold);
-            border-radius: 0 50% 50% 50%;
-            transform: rotate(45deg);
-            position: absolute;
-            left: 50%;
-            top: 80px;
-            opacity: 0;
-            animation: dripDownEffect 2.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .fluid-drop.second {
-            left: 42%;
-            animation-delay: 0.8s;
-        }
-
-        /* اسم البراند الرايق الذي يظهر ويتوهج بفعل قطرات الجل */
         .splash-logo {
             font-family: var(--font-luxury);
-            font-size: 4.5rem;
-            font-weight: 700;
+            font-size: 3rem;
             color: transparent;
             background: var(--luxury-gold);
             -webkit-background-clip: text;
             background-clip: text;
-            letter-spacing: 15px;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
             opacity: 0;
-            transform: scale(0.9);
-            animation: revealBrandName 4s forwards 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-shadow: 0 0 40px rgba(212,175,55,0.2);
+            animation: fadeIn 2s forwards ease-in-out;
         }
 
-        /* الدائرة العملاقة الفخمة المحيطة للمنتجات */
-        .product-ring-mega {
-            position: absolute;
-            width: 750px;
-            height: 750px;
+        .orbit-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
             transform-style: preserve-3d;
-            animation: rotateRing3D 15s linear infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 2;
-            opacity: 0.85;
+            animation: rotateOrbit 8s linear infinite;
         }
 
-        .ring-item-mega {
+        .orbit-circle {
             position: absolute;
-            width: 140px;
-            height: 140px;
-            background: #fff;
-            border: 2px solid var(--accent-gold);
-            border-radius: 20px;
-            padding: 10px;
-            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.25);
+            width: 100%;
+            height: 100%;
+            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border-radius: 50%;
+            transform: rotateX(75deg);
         }
 
-        /* توزيع هندسي متناسق لـ 8 منتجات في دائرة عريضة */
-        .ring-item-mega:nth-child(1) { transform: rotateY(0deg) translateZ(350px); }
-        .ring-item-mega:nth-child(2) { transform: rotateY(45deg) translateZ(350px); }
-        .ring-item-mega:nth-child(3) { transform: rotateY(90deg) translateZ(350px); }
-        .ring-item-mega:nth-child(4) { transform: rotateY(135deg) translateZ(350px); }
-        .ring-item-mega:nth-child(5) { transform: rotateY(180deg) translateZ(350px); }
-        .ring-item-mega:nth-child(6) { transform: rotateY(225deg) translateZ(350px); }
-        .ring-item-mega:nth-child(7) { transform: rotateY(270deg) translateZ(350px); }
-        .ring-item-mega:nth-child(8) { transform: rotateY(315deg) translateZ(350px); }
+        .glow-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--luxury-gold);
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--accent-gold);
+        }
 
-        /* 2. Header Architecture */
+        /* 2. Header & Navigation */
         header {
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
             z-index: 1000;
-            padding: 22px 8%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -168,9 +112,10 @@
 
         .logo {
             font-family: var(--font-luxury);
-            font-size: 2.3rem;
+            font-size: 1.8rem;
             font-weight: 700;
             cursor: pointer;
+            user-select: none;
             background: var(--luxury-gold);
             -webkit-background-clip: text;
             background-clip: text;
@@ -180,568 +125,539 @@
         nav a {
             text-decoration: none;
             color: var(--text-black);
-            margin: 0 22px;
-            font-size: 1.05rem;
-            font-weight: 600;
+            margin: 0 15px;
+            font-size: 0.95rem;
+            font-weight: 400;
             transition: color 0.3s;
         }
 
-        nav a:hover { color: var(--accent-gold); }
+        nav a:hover {
+            color: var(--hover-rose-gold);
+        }
 
         .header-icons {
             display: flex;
-            gap: 25px;
-            font-size: 1.3rem;
-            align-items: center;
+            gap: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
         }
 
-        .header-icons i { cursor: pointer; transition: 0.3s; position: relative; }
-        .header-icons i:hover { color: var(--accent-gold); transform: scale(1.1); }
-        
-        .cart-badge-count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: #111;
-            color: #fff;
-            font-size: 0.75rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: sans-serif;
+        .header-icons i:hover {
+            color: var(--hover-rose-gold);
+            transform: scale(1.1);
+            transition: 0.3s;
         }
 
-        /* 3. Hero Presentation */
+        /* 3. Hero Section */
         .hero {
-            min-height: 85vh;
+            height: 85vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 60px 8%;
-            background: linear-gradient(145deg, #fdfbf7 0%, var(--bg-cream) 100%);
+            padding: 0 8%;
+            background: radial-gradient(circle at 80%, #fbf9f6 0%, var(--bg-cream) 100%);
+            position: relative;
         }
 
-        .hero-content { max-width: 50%; }
+        .hero-content {
+            max-width: 50%;
+        }
 
         .hero-content h1 {
             font-family: var(--font-luxury);
-            font-size: 4.2rem;
-            line-height: 1.15;
-            margin-bottom: 25px;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
             color: var(--text-black);
         }
 
         .hero-content p {
             color: var(--text-gray);
-            font-size: 1.25rem;
-            line-height: 1.9;
-            margin-bottom: 40px;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
         }
 
         .btn-gold {
             background: var(--luxury-gold);
             color: #000;
             border: none;
-            padding: 16px 40px;
-            font-weight: 700;
+            padding: 12px 30px;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 50px;
+            border-radius: 4px;
             transition: 0.4s;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
         }
 
         .btn-gold:hover {
+            background: var(--hover-rose-gold);
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.4);
+        }
+
+        .btn-outline {
+            border: 1px solid var(--text-black);
+            background: transparent;
+            color: var(--text-black);
+            padding: 12px 30px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .btn-outline:hover {
             background: var(--text-black);
             color: #fff;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
 
-        .hero-image-container { max-width: 45%; display: flex; justify-content: center; }
-        .hero-image-container svg {
+        .hero-image-container {
+            max-width: 45%;
+            position: relative;
+        }
+
+        .hero-image-container img {
             width: 100%;
-            max-width: 380px;
-            animation: floatLargeBottle 4s ease-in-out infinite;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
+            animation: float 4s ease-in-out infinite;
         }
 
-        /* 4. About & Biography Section */
+        /* 4. About Section */
         .about-section {
-            padding: 100px 10%;
+            padding: 80px 10%;
             background: var(--primary-white);
+            text-align: center;
             border-top: 1px solid var(--secondary-beige);
         }
 
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-title { font-family: var(--font-luxury); font-size: 3rem; margin-bottom: 25px; }
-        .about-title::after { content: ''; display: block; width: 70px; height: 3px; background: var(--accent-gold); margin-top: 12px; }
-        .about-text { font-size: 1.15rem; color: var(--text-gray); line-height: 2; margin-bottom: 20px; }
+        .about-title {
+            font-family: var(--font-luxury);
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-        .badges-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .badge-box { background: var(--bg-cream); padding: 22px; border-radius: 12px; border-right: 4px solid var(--accent-gold); }
-        .badge-box h4 { font-size: 1.15rem; color: var(--text-black); margin-bottom: 5px; }
-        .badge-box p { font-size: 0.95rem; color: var(--text-gray); }
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 800px;
+            margin: 0 auto 10px;
+            line-height: 1.8;
+        }
 
-        /* 5. Live Showcase & Catalog */
-        .products-section { padding: 90px 8%; }
-        .filter-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
-        .filter-btn { background: white; border: 1px solid rgba(0,0,0,0.06); padding: 12px 32px; border-radius: 30px; cursor: pointer; font-weight: 600; transition: 0.3s; font-family: var(--font-body); }
-        .filter-btn.active, .filter-btn:hover { background: var(--text-black); color: white; }
+        /* 5. Products Grid & Skeleton */
+        .products-section {
+            padding: 60px 8%;
+        }
 
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 40px; }
+        .section-title {
+            font-family: var(--font-luxury);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        /* Glass Product Card */
         .product-card {
-            background: white; border: 1px solid rgba(0,0,0,0.03); border-radius: 24px; padding: 25px; text-align: center;
-            position: relative; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); display: flex; flex-direction: column; justify-content: space-between;
-            box-shadow: 0 10px 35px rgba(0,0,0,0.01);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
         }
-        .product-card:hover { transform: translateY(-12px); box-shadow: 0 30px 60px rgba(212, 175, 55, 0.18); border-color: var(--accent-gold); }
-        
-        .product-badge { position: absolute; top: 20px; right: 20px; background: #b76e79; color: white; padding: 6px 16px; font-size: 0.8rem; border-radius: 20px; font-weight: 700; z-index: 5; }
-        .product-img-wrapper { width: 100%; height: 280px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .product-img-wrapper svg { width: 100%; height: 100%; transition: transform 0.5s; }
-        .product-card:hover .product-img-wrapper svg { transform: scale(1.07); }
 
-        .product-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: var(--text-black); }
-        .product-desc { font-size: 0.95rem; color: var(--text-gray); margin-bottom: 18px; line-height: 1.6; padding: 0 10px; }
-        .product-price { font-size: 1.4rem; font-weight: 700; color: var(--text-black); margin-bottom: 22px; }
-        .product-price span { text-decoration: line-through; color: #b5b5b5; font-size: 1.05rem; margin-right: 12px; }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
+            border-color: var(--accent-gold);
+        }
 
-        /* Live Toast Notification */
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--hover-rose-gold);
+            color: white;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            transition: transform 0.4s;
+            margin-bottom: 15px;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--text-black);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-price span {
+            text-decoration: line-through;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-right: 8px;
+        }
+
+        .card-btns {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .card-btns button, .card-btns a {
+            padding: 10px 15px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Skeleton Loading Style */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        .skeleton-card {
+            height: 380px;
+            border-radius: 12px;
+            background: #fff;
+            padding: 20px;
+        }
+
+        /* 6. Live Order Notification Popup */
         #live-notification {
-            position: fixed; bottom: 30px; left: 30px; background: white; border-right: 5px solid var(--accent-gold);
-            box-shadow: 0 20px 45px rgba(0,0,0,0.12); padding: 20px 25px; border-radius: 16px; z-index: 2000;
-            display: flex; align-items: center; gap: 15px; transform: translateY(200%); transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 410px;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-right: 4px solid var(--accent-gold);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateY(150%);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        #live-notification.show { transform: translateY(0); }
 
-        /* Dynamic Admin Console */
-        .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 3000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: 0.4s; }
-        .admin-modal.open { opacity: 1; pointer-events: auto; }
-        .admin-box { background: white; padding: 45px; border-radius: 24px; width: 95%; max-width: 950px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--accent-gold); position: relative; }
-        .close-dashboard { position: absolute; top: 22px; left: 22px; font-size: 1.7rem; cursor: pointer; color: var(--text-gray); }
-        .dashboard-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 25px; }
-        .form-group { margin-bottom: 18px; text-align: right; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--secondary-beige); border-radius: 8px; font-family: var(--font-body); font-size: 1rem; }
-        .product-manager-list { border-top: 1px solid var(--secondary-beige); padding-top: 20px; max-height: 380px; overflow-y: auto; }
-        .manager-item { display: flex; justify-content: space-between; align-items: center; padding: 14px; background: var(--bg-cream); margin-bottom: 12px; border-radius: 8px; }
-
-        footer { background: #050505; color: #fff; padding: 70px 8% 35px; text-align: center; border-top: 4px solid var(--accent-gold); }
-        .footer-logo { font-family: var(--font-luxury); font-size: 2.6rem; background: var(--luxury-gold); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 15px; }
-
-        /* Core Keyframe Animations */
-        @keyframes floatBottles { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes dripDownEffect {
-            0% { top: 75px; opacity: 0; transform: scale(0.6) rotate(45deg); }
-            30% { opacity: 1; }
-            70% { top: 180px; opacity: 1; transform: scale(1.2) rotate(45deg); }
-            100% { top: 195px; opacity: 0; transform: scale(2) rotate(45deg); filter: blur(3px); }
+        #live-notification.show {
+            transform: translateY(0);
         }
-        @keyframes revealBrandName {
-            0% { opacity: 0; transform: scale(0.92); filter: blur(10px); }
-            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
-        }
-        @keyframes rotateRing3D { 0% { transform: rotateY(0deg) rotateX(12deg); } 100% { transform: rotateY(360deg) rotateX(12deg); } }
-        @keyframes floatLargeBottle { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(2deg); } }
 
-        @media (max-width: 992px) {
+        /* 7. Hidden Admin Dashboard Popup */
+        .admin-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 3000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+        }
+
+        .admin-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .admin-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .admin-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid var(--secondary-beige);
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            background: #0b0b0b;
+            color: #fff;
+            padding: 40px 5% 20px;
+            text-align: center;
+            border-top: 3px solid var(--accent-gold);
+        }
+
+        .footer-logo {
+            font-family: var(--font-luxury);
+            font-size: 2rem;
+            background: var(--luxury-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+        }
+
+        /* Animations Keyframes */
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes rotateOrbit { to { transform: rotateY(360deg); } }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            header { padding: 15px 4%; }
             nav { display: none; }
-            .hero { flex-direction: column-reverse; text-align: center; gap: 40px; padding: 40px 4%; }
-            .hero-content { max-width: 100%; } .hero-image-container { max-width: 90%; }
-            .hero-content h1 { font-size: 2.8rem; }
-            .product-ring-mega { width: 400px; height: 400px; }
-            .ring-item-mega { width: 75px; height: 75px; }
-            .ring-item-mega:nth-child(1) { transform: rotateY(0deg) translateZ(170px); }
-            .ring-item-mega:nth-child(2) { transform: rotateY(45deg) translateZ(170px); }
-            .ring-item-mega:nth-child(3) { transform: rotateY(90deg) translateZ(170px); }
-            .ring-item-mega:nth-child(4) { transform: rotateY(135deg) translateZ(170px); }
-            .ring-item-mega:nth-child(5) { transform: rotateY(180deg) translateZ(170px); }
-            .ring-item-mega:nth-child(6) { transform: rotateY(225deg) translateZ(170px); }
-            .ring-item-mega:nth-child(7) { transform: rotateY(270deg) translateZ(170px); }
-            .ring-item-mega:nth-child(8) { transform: rotateY(315deg) translateZ(170px); }
+            .hero { flex-direction: column-reverse; height: auto; padding: 40px 5%; text-align: center; gap: 30px;}
+            .hero-content { max-width: 100%; }
+            .hero-image-container { max-width: 80%; }
+            .hero-content h1 { font-size: 2.3rem; }
         }
     </style>
 </head>
 <body>
 
-    <svg style="display: none;">
-        <g id="svg-serum-bottle">
-            <rect width="100%" height="100%" fill="none"/>
-            <rect x="75" y="70" width="70" height="150" rx="15" fill="#1a1a1a"/>
-            <rect x="95" y="30" width="30" height="40" fill="#d4af37" rx="4"/>
-            <path d="M85 70 Q110 45 135 70 Z" fill="#d4af37"/>
-            <text x="110" y="145" font-family="serif" font-size="12" fill="#fff" text-anchor="middle" letter-spacing="2">LAMORA</text>
-            <text x="110" y="170" font-size="8" fill="#d4af37" text-anchor="middle">SERUM GOLD</text>
-        </g>
-        <g id="svg-shampoo-bottle">
-            <rect width="100%" height="100%" fill="none"/>
-            <path d="M70 60 C70 40, 150 40, 150 60 L140 220 C140 230, 80 230, 80 220 Z" fill="#f4eae1" stroke="#d4af37" stroke-width="2"/>
-            <rect x="100" y="15" width="20" height="35" fill="#111" rx="2"/>
-            <path d="M95 25 L105 10 L115 25 Z" fill="#d4af37"/>
-            <text x="110" y="130" font-family="serif" font-size="13" fill="#111" text-anchor="middle" font-weight="bold">LAMORA</text>
-            <text x="110" y="155" font-size="9" fill="#666" text-anchor="middle">HAIR WASH</text>
-        </g>
-        <g id="svg-cream-jar">
-            <rect width="100%" height="100%" fill="none"/>
-            <rect x="60" y="90" width="100" height="90" rx="20" fill="#fff" stroke="#111" stroke-width="2"/>
-            <rect x="55" y="60" width="110" height="30" fill="#d4af37" rx="6"/>
-            <text x="110" y="135" font-family="serif" font-size="13" fill="#111" text-anchor="middle" font-weight="bold">LAMORA</text>
-            <text x="110" y="155" font-size="8" fill="#d4af37" text-anchor="middle">FACIAL CREAM</text>
-        </g>
-    </svg>
-
-    <div id="splash-screen">
-        <div class="animation-container">
-            <div class="premium-bottles">
-                <svg class="bottle-svg" viewBox="0 0 220 280"><use href="#svg-serum-bottle"/></svg>
-                <svg class="bottle-svg" viewBox="0 0 220 280"><use href="#svg-shampoo-bottle"/></svg>
-            </div>
-            <div class="fluid-drop"></div>
-            <div class="fluid-drop second"></div>
-            <div class="splash-logo">LAMORA</div>
+    <div id="#splash-screen" style="display: none;"></div> <div id="splash-screen">
+        <div class="splash-logo">LAMORA STORE</div>
+        <div class="orbit-container">
+            <div class="orbit-circle"><div class="glow-particle"></div></div>
         </div>
-        
-        <div class="product-ring-mega" id="splash-ring">
-            </div>
     </div>
 
     <header>
-        <div class="logo" id="header-logo">LAMORA</div>
+        <div class="logo" id="header-logo">LAMORA STORE</div>
         <nav>
             <a href="#home">الرئيسية</a>
-            <a href="#products">المنتجات فاخرة</a>
-            <a href="#about">قصة نجاحنا</a>
+            <a href="#products">المنتجات</a>
+            <a href="#about">عن لامورا</a>
             <a href="#footer">اتصلي بنا</a>
         </nav>
         <div class="header-icons">
             <i class="fas fa-search"></i>
-            <i class="fas fa-shopping-bag"><span class="cart-badge-count" id="cart-counter">0</span></i>
+            <i class="fas fa-heart"></i>
+            <i class="fas fa-shopping-bag"></i>
         </div>
     </header>
 
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Elevate Your Glow To Luxury</h1>
-            <p>اكتشفي الفخامة الملكية والنضارة الفائقة مع مستحضرات العناية الطبية المصممة خصيصاً لتمنح بشرتك توهجاً ملكياً ساحراً لا ينطفئ.</p>
+            <h1>Reveal Your Natural Beauty</h1>
+            <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى.</p>
             <div class="hero-btns">
-                <a href="#products" class="btn-gold">تصفحي المجموعة الفاخرة <i class="fas fa-arrow-left"></i></a>
+                <a href="#products" class="btn-gold">تسوقي الآن</a>
+                <button class="btn-outline">اكتشفي المجموعة</button>
             </div>
         </div>
         <div class="hero-image-container">
-            <svg viewBox="0 0 220 280"><use href="#svg-serum-bottle"/></svg>
+            <img src="https://images.unsplash.com/photo-1608248597481-496100c8c836?auto=format&fit=crop&w=600&q=80" alt="Premium Product">
         </div>
     </section>
 
     <section class="about-section" id="about">
-        <div class="about-grid">
-            <div>
-                <h2 class="about-title">عن Lamora Store</h2>
-                <p class="about-text">
-                    انطلق براند **Lamora Store** برؤية علاجية وتجميلية متكاملة تقودها خبيرة التجميل والعناية بالأستاذة **رواء محمد**، لتقديم تركيبات طبيعية فاخرة تضاهي المنتجات العالمية في الجودة والفعالية الأكاديمية.
-                </p>
-                <p class="about-text">
-                    نحن نهتم بدمج المكونات النشطة والنقية المختبرة معملياً لضمان علاج عيوب البشرة الحساسة وتفتيح التصبغات وتغذية الشعر من الجذور بأمان تام وخلو كامل من البارابين.
-                </p>
-            </div>
-            <div>
-                <h3 style="font-family: var(--font-luxury); font-size: 1.7rem; margin-bottom: 15px; color: var(--accent-gold);">رؤيتنا الأكاديمية المعتمدة</h3>
-                <div class="badges-container">
-                    <div class="badge-box"><h4>شهادات معتمدة</h4><p>في دبلومة تركيب مستحضرات التجميل العلاجية الاحترافية.</p></div>
-                    <div class="badge-box"><h4>مكونات آمنة 100%</h4><p>مستخلصات طبيعية خالية تماماً من الكيماويات الضارة.</p></div>
-                </div>
-            </div>
-        </div>
+        <h2 class="about-title">عن Lamora Store</h2>
+        <p class="about-text">
+            في Lamora Store، نؤمن أن البشرة النضرة ليست مجرد مظهر، بل هي انعكاس لثقتكِ الداخلية. تأسس البراند برؤية وشغف من الأستاذة <strong>رواء محمد</strong>، لتقديم تجربة عناية استثنائية تضاهي المنتجات العالمية.
+        </p>
+        <p class="about-text" style="font-style: italic; color: var(--accent-gold);">
+            "نحن لا نبيع مجرد مستحضرات، بل ننتقي لكِ بعناية فائقة تركيبات فاخرة غنية بالمكونات الطبيعية الفعالة لتعيد لبشرتكِ توهجها الطبيعي."
+        </p>
     </section>
 
     <section class="products-section" id="products">
-        <h2 style="text-align: center; margin-bottom: 45px; font-family: var(--font-luxury); font-size: 2.6rem;">كتالوج المنتجات والأسعار الحقيقية</h2>
+        <h2 class="section-title">المجموعة الفاخرة المميزة</h2>
         
-        <div class="filter-container">
-            <button class="filter-btn active" onclick="filterCategory('all')">جميع المنتجات</button>
-            <button class="filter-btn" onclick="filterCategory('skin')">العناية بالبشرة</button>
-            <button class="filter-btn" onclick="filterCategory('hair')">العناية بالشعر</button>
-            <button class="filter-btn" onclick="filterCategory('body')">العناية بالجسم</button>
+        <div class="products-grid" id="skeleton-container">
+            <div class="skeleton-card skeleton"></div>
+            <div class="skeleton-card skeleton"></div>
+            <div class="skeleton-card skeleton"></div>
         </div>
 
-        <div class="products-grid" id="real-products">
+        <div class="products-grid" id="real-products" style="display: none;">
+            
+            <div class="product-card">
+                <span class="product-badge">SALE</span>
+                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" alt="Serum">
+                <div class="product-name">سيروم الذهب والنضارة الملكي</div>
+                <div class="product-price">450 ج.م <span>650 ج.م</span></div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20سيروم%20الذهب%20والنضارة%20الملكي" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
             </div>
+
+            <div class="product-card">
+                <span class="product-badge">الأكثر مبيعاً</span>
+                <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" alt="Cream">
+                <div class="product-name">كريم الترطيب المخملي الشامل</div>
+                <div class="product-price">390 ج.م</div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20كريم%20الترطيب%20المخملي%20الشامل" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <span class="product-badge">جديد</span>
+                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Facial Wash">
+                <div class="product-name">غسول رغوي مهدئ للبشرة</div>
+                <div class="product-price">320 ج.م <span>400 ج.م</span></div>
+                <div class="card-btns">
+                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20غسول%20رغوي%20مهدئ%20للبشرة" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <div id="live-notification">
-        <i class="fas fa-fire" style="color: var(--accent-gold); font-size: 1.5rem;"></i>
-        <div id="notification-text">تقوم إحدى العميلات بتصفح العروض الآن...</div>
+        <i class="fas fa-shopping-bag" style="color: var(--accent-gold); font-size: 1.3rem;"></i>
+        <div id="notification-text">يقوم أحد العملاء بتصفح الموقع الآن...</div>
     </div>
 
     <div class="admin-modal" id="adminModal">
-        <div class="admin-box" id="loginBox" style="max-width: 400px; text-align:center;">
-            <i class="fas fa-shield-halved" style="font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 15px;"></i>
-            <h3 style="margin-bottom: 15px;">لوحة الإدارة والمخزون</h3>
-            <input type="password" id="adminPass" placeholder="أدخل رمز المرور السري للمديرة" style="width:100%; padding:12px; border-radius:8px; text-align:center; margin-bottom:15px;">
-            <button class="btn-gold" style="width:100%; justify-content: center;" onclick="checkAdminPassword()">دخول آمن</button>
-        </div>
-
-        <div class="admin-box" id="dashboardBox" style="display: none;">
-            <i class="fas fa-times close-dashboard" onclick="closeAdminModal()"></i>
-            <h2>لوحة إدارة وتعديل أسعار ومنتجات Lamora فورياً</h2>
-            <div class="dashboard-layout">
-                <div>
-                    <h3 id="form-title" style="margin-bottom: 15px; color: var(--accent-gold);">إضافة منتج جديد للكتالوج</h3>
-                    <input type="hidden" id="edit-index">
-                    <div class="form-group"><label>اسم المنتج</label><input type="text" id="prod-name"></div>
-                    <div class="form-group">
-                        <label>شكل العبوة الرسومية</label>
-                        <select id="prod-svg-type">
-                            <option value="serum">عبوة سيروم ذهبية</option>
-                            <option value="shampoo">عبوة غسول/شامبو ملكي</option>
-                            <option value="cream">عبوة كريم دائرية</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>الوصف والمكونات الفاخرة</label><textarea id="prod-desc" rows="2"></textarea></div>
-                    <div class="form-group"><label>السعر الحالي (ج.م)</label><input type="number" id="prod-price"></div>
-                    <div class="form-group"><label>السعر القديم قبل الخصم</label><input type="number" id="prod-old-price"></div>
-                    <div class="form-group">
-                        <label>التصنيف</label>
-                        <select id="prod-category">
-                            <option value="skin">العناية بالبشرة</option>
-                            <option value="hair">العناية بالشعر</option>
-                            <option value="body">العناية بالجسم</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label>الشارة التسويقية (Badge)</label><input type="text" id="prod-badge" placeholder="مثال: الأكثر مبيعاً"></div>
-                    <button class="btn-gold" id="save-btn" style="width: 100%; justify-content: center;" onclick="saveProduct()">تحديث شاشات المشاهدين فوراً</button>
-                </div>
-                <div>
-                    <h3 style="margin-bottom: 15px;">المنتجات النشطة بالمتجر</h3>
-                    <div class="product-manager-list" id="manager-list"></div>
-                </div>
-            </div>
+        <div class="admin-box">
+            <h3 style="font-family: var(--font-luxury); margin-bottom: 10px;">لوحة التحكم السرية</h3>
+            <p style="font-size: 0.85rem; color: var(--text-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard</p>
+            <input type="password" id="adminPass" placeholder="••••••">
+            <button class="btn-gold" style="width:100%;" onclick="checkAdminPassword()">دخول</button>
         </div>
     </div>
 
     <footer id="footer">
         <div class="footer-logo">LAMORA STORE</div>
-        <p style="color: var(--secondary-beige); font-size: 1rem; margin-bottom: 15px;">Premium Luxury Skincare For Royal Glow</p>
-        <p style="font-size: 1.1rem; margin-bottom: 20px; font-weight: bold;">رقم الواتساب الرسمي للطلبات: 01554369459</p>
-        <p style="font-size: 0.85rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة ومحمية للأستاذة رواء محمد</p>
+        <p style="color: var(--secondary-beige); font-size: 0.9rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
+        <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">للتواصل المباشر: 01554369459</p>
+        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
+        <p style="font-size: 0.8rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة لمديرة البراند أ/ رواء محمد</p>
     </footer>
 
     <script>
-        // قاعدة البيانات الأساسية للمنتجات مربوطة بالقوالب الرسومية المستقرة 100%
-        const initialProducts = [
-            { name: 'سيروم الذهب والنضارة الملكي', svgType: 'serum', desc: 'تركيبة الذهب الفاخرة لإعادة مرونة ولمعان وحماية حاجز البشرة الطبيعي.', price: 450, oldPrice: 650, category: 'skin', badge: 'SALE' },
-            { name: 'كريم الهيدروليك المخملي الشامل', svgType: 'cream', desc: 'كريم مرطب غني بالهيدروليك أسيد لترطيب فائق وبشرة مشدودة وممتلئة طوال اليوم.', price: 390, oldPrice: null, category: 'skin', badge: 'الأكثر مبيعاً' },
-            { name: 'غسول التفتيح الرغوي اللطيف', svgType: 'shampoo', desc: 'ينظف المسام العميقة بلطف ويمنح إشراقة وتبييض فوري من أول استخدام.', price: 320, oldPrice: 400, category: 'skin', badge: 'جديد' },
-            { name: 'زيت اللافندر العضوي لترميم الشعر', svgType: 'serum', desc: 'يغذي البصيلات من الجذور ويمنح لمعاناً وقوة مخملية تمنع التقصف تماماً.', price: 520, oldPrice: 700, category: 'hair', badge: 'خصم مميز' },
-            { name: 'مقشر القهوة الفاخر لشد الجسم', svgType: 'cream', desc: 'مزيج طبيعي لتقشير الخلايا الميتة وتنشيط الدورة الدموية وتنعيم ملمس الجسم.', price: 340, oldPrice: 420, category: 'body', badge: 'SALE' }
-        ];
-
-        if(!localStorage.getItem('lamora_secure_products')) {
-            localStorage.setItem('lamora_secure_products', JSON.stringify(initialProducts));
-        }
-
-        let currentFilter = 'all';
-        let cartCount = 0;
-
+        // A. Handling Splash Screen
         window.addEventListener('DOMContentLoaded', () => {
-            // ملء الدائرة الافتتاحية ثلاثية الأبعاد بـ 8 مجسمات حقيقية ملونة لتدور بروقان كامل
-            const ringContainer = document.getElementById('splash-ring');
-            ringContainer.innerHTML = '';
-            const types = ['serum', 'shampoo', 'cream', 'serum', 'cream', 'shampoo', 'serum', 'cream'];
-            
-            types.forEach(type => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'ring-item-mega';
-                wrapper.innerHTML = `<svg viewBox="0 0 220 280" style="width:100%; height:100%;"><use href="#svg-${type}-bottle"/></svg>`;
-                ringContainer.appendChild(wrapper);
-            });
-
-            // إخفاء الـ Splash screen وانفتاح الموقع بعد اكتمال سيلان الجل
             setTimeout(() => {
-                document.getElementById('splash-screen').classList.add('exit');
-            }, 5500);
+                const splash = document.getElementById('splash-screen');
+                splash.style.opacity = '0';
+                setTimeout(() => splash.style.display = 'none', 800);
+            }, 4000); // يستغرق 4 ثوانٍ ليعطي انطباع الفخامة والأناقة
 
-            renderProducts();
+            // B. Handling Mock Loading / Skeleton
+            setTimeout(() => {
+                document.getElementById('skeleton-container').style.display = 'none';
+                document.getElementById('real-products').style.display = 'grid';
+            }, 5500);
         });
 
-        // بناء وعرض المنتجات بالأسعار الحقيقية والربط الفوري بالواتساب لشحن سريع
-        function renderProducts() {
-            const products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
-            const grid = document.getElementById('real-products');
-            grid.innerHTML = '';
-
-            const filtered = products.filter(p => currentFilter === 'all' || p.category === currentFilter);
-
-            filtered.forEach(p => {
-                const badgeHTML = p.badge ? `<span class="product-badge">${p.badge}</span>` : '';
-                const oldPriceHTML = p.oldPrice ? `<span>${p.oldPrice} ج.م</span>` : '';
-                const actualSvgType = p.svgType ? p.svgType : 'serum';
-                const encodedMsg = encodeURIComponent(`مرحباً براند Lamora Store الفاخر، أود طلب وشراء المنتج التالي عبر الشحن السريع:\n- المنتج: ${p.name}\n- السعر الحالي: ${p.price} ج.م`);
-
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    ${badgeHTML}
-                    <div class="product-img-wrapper">
-                        <svg viewBox="0 0 220 280"><use href="#svg-${actualSvgType}-bottle"/></svg>
-                    </div>
-                    <div>
-                        <div class="product-name">${p.name}</div>
-                        <div class="product-desc">${p.desc}</div>
-                    </div>
-                    <div>
-                        <div class="product-price">${p.price} ج.م ${oldPriceHTML}</div>
-                        <div style="display:flex; flex-direction:column; gap:10px;">
-                            <a href="https://wa.me/201554369459?text=${encodedMsg}" target="_blank" class="btn-gold" style="justify-content:center;"><i class="fab fa-whatsapp"></i> اطلبي عبر واتساب مباشرة</a>
-                            <button class="filter-btn" style="width:100%; border:1px solid #111;" onclick="addToBag()">إضافة لسلة المشتريات التخيلية</button>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function addToBag() {
-            cartCount++;
-            document.getElementById('cart-counter').innerText = cartCount;
-            alert("تم إضافة المنتج بنجاح إلى سلتك الفاخرة بالمتجر!");
-        }
-
-        function filterCategory(cat) {
-            currentFilter = cat;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderProducts();
-        }
-
-        // إشعارات حية عشوائية ذكية للروقان وزيادة الثقة والمبيعات للمشاهدين
-        const clientNames = ['أستاذة إيمان س.', 'أستاذة نورهان م.', 'دكتورة هناء ط', 'أستاذة ميار ع.', 'الأستاذة جيهان ف.'];
-        const clientCities = ['مصر الجديدة', 'الإسكندرية', 'المنصورة', 'الجيزة', 'طنطا'];
+        // C. Live Social Proof (تغيير الزيارات والمحافظات كل 10 ثوانٍ)
+        const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.', 'رنا ط.', 'نور هـ.'];
+        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الأسماعيلية'];
+        const products = ['سيروم الذهب الملكي', 'كريم الترطيب المخملي', 'مجموعة النضارة المتكاملة', 'غسول رغوي مهدئ'];
+        
         function showLiveNotification() {
             const notification = document.getElementById('live-notification');
             const textEl = document.getElementById('notification-text');
-            const products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
+            
+            // اختيار بيانات عشوائية
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomCity = cities[Math.floor(Math.random() * cities.length)];
+            const randomProduct = products[Math.floor(Math.random() * products.length)];
+            const randomNum = Math.floor(100 + Math.random() * 900);
 
-            const randomName = clientNames[Math.floor(Math.random() * clientNames.length)];
-            const randomCity = clientCities[Math.floor(Math.random() * clientCities.length)];
-            const randomProduct = products[Math.floor(Math.random() * products.length)].name;
-            const randomNum = Math.floor(100 + Math.random() * 899);
+            const templates = [
+                `✨ اشترت أستاذة (${randomName} من ${randomCity} - 010***${randomNum}) "${randomProduct}" قبل قليل.`,
+                `🔥 عميل من (${randomCity}) يقوم بتصفح "${randomProduct}" الآن.`,
+                `⭐ قيمت أستاذة (${randomName}) بخمس نجوم: "المنتج رائع وفرق في نضارة بشرتي جداً!"`
+            ];
 
-            textEl.innerHTML = `✨ اشترت العبارة ${randomName} من (${randomCity} - 015***${randomNum}) منتجك الفاخر: "${randomProduct}" قبل قليل.`;
+            textEl.innerHTML = templates[Math.floor(Math.random() * templates.length)];
             notification.classList.add('show');
-            setTimeout(() => { notification.classList.remove('show'); }, 5000);
-        }
-        setInterval(showLiveNotification, 14000);
 
-        // تشغيل لوحة الإدارة (الضغط 3 مرات متتالية على اللوجو LAMORA بالأعلى)
-        let clickTracker = 0;
-        document.getElementById('header-logo').addEventListener('click', () => {
-            clickTracker++;
-            if (clickTracker === 3) {
+            // إخفاء بعد 4 ثوانٍ
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 4000);
+        }
+
+        // تشغيل الإشعار التفاعلي المتكرر كل 10 ثوانٍ
+        setInterval(showLiveNotification, 10000);
+
+        // D. Hidden Admin Easter Egg (الضغط 3 مرات متتالية)
+        let clickCount = 0;
+        const logoBtn = document.getElementById('header-logo');
+        
+        logoBtn.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 3) {
                 document.getElementById('adminModal').classList.add('open');
-                clickTracker = 0;
+                clickCount = 0; // إعادة التصفير
             }
-            setTimeout(() => { clickTracker = 0; }, 2000);
+            // تصفير العداد التلقائي إذا لم تكن الضغطات متتالية سريعة
+            setTimeout(() => { clickCount = 0; }, 2000);
         });
 
         function checkAdminPassword() {
-            if(document.getElementById('adminPass').value === "772007") {
-                document.getElementById('loginBox').style.display = "none";
-                document.getElementById('dashboardBox').style.display = "block";
-                renderManagerList();
-            } else { alert("رمز المرور المدخل غير صحيح بالمرة!"); }
-        }
-
-        function closeAdminModal() {
-            document.getElementById('adminModal').classList.remove('open');
-            document.getElementById('loginBox').style.display = "block";
-            document.getElementById('dashboardBox').style.display = "none";
-            document.getElementById('adminPass').value = '';
-        }
-
-        function renderManagerList() {
-            const products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
-            const listContainer = document.getElementById('manager-list');
-            listContainer.innerHTML = '';
-            products.forEach((p, index) => {
-                const item = document.createElement('div');
-                item.className = 'manager-item';
-                item.innerHTML = `
-                    <span>${p.name} (${p.price} ج.م)</span>
-                    <div style="display:flex; gap:12px; cursor:pointer;">
-                        <i class="fas fa-edit" style="color:#007bff;" onclick="loadEditProduct(${index})"></i>
-                        <i class="fas fa-trash" style="color:#dc3545;" onclick="deleteProduct(${index})"></i>
-                    </div>
-                `;
-                listContainer.appendChild(item);
-            });
-        }
-
-        function saveProduct() {
-            const name = document.getElementById('prod-name').value;
-            const svgType = document.getElementById('prod-svg-type').value;
-            const desc = document.getElementById('prod-desc').value;
-            const price = parseFloat(document.getElementById('prod-price').value);
-            const oldPrice = parseFloat(document.getElementById('prod-old-price').value) || null;
-            const category = document.getElementById('prod-category').value;
-            const badge = document.getElementById('prod-badge').value;
-            const editIndex = document.getElementById('edit-index').value;
-
-            if(!name || !price) { alert("يرجى ملء الاسم والسعر على الأقل لتحديث المتجر!"); return; }
-
-            let products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
-            const productData = { name, svgType, desc, price, oldPrice, category, badge };
-
-            if(editIndex !== "") {
-                products[parseInt(editIndex)] = productData;
-                document.getElementById('edit-index').value = "";
-                document.getElementById('form-title').innerText = "إضافة منتج جديد للكتالوج";
-                document.getElementById('save-btn').innerText = "تحديث شاشات المشاهدين فوراً";
-            } else { products.push(productData); }
-
-            localStorage.setItem('lamora_products', JSON.stringify(products));
-            
-            document.getElementById('prod-name').value = '';
-            document.getElementById('prod-desc').value = '';
-            document.getElementById('prod-price').value = '';
-            document.getElementById('prod-old-price').value = '';
-            document.getElementById('prod-badge').value = '';
-
-            renderManagerList();
-            renderProducts();
-            alert("تم التحديث الفوري ونشر التعديلات بنجاح!");
-        }
-
-        function loadEditProduct(index) {
-            const products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
-            const p = products[index];
-            document.getElementById('prod-name').value = p.name;
-            document.getElementById('prod-svg-type').value = p.svgType || 'serum';
-            document.getElementById('prod-desc').value = p.desc;
-            document.getElementById('prod-price').value = p.price;
-            document.getElementById('prod-old-price').value = p.oldPrice || '';
-            document.getElementById('prod-category').value = p.category;
-            document.getElementById('prod-badge').value = p.badge || '';
-            document.getElementById('edit-index').value = index;
-            document.getElementById('form-title').innerText = "تعديل بيانات المنتج الحالي";
-            document.getElementById('save-btn').innerText = "حفظ التغييرات الفورية";
-        }
-
-        function deleteProduct(index) {
-            if(confirm("هل أنتِ متأكدة تماماً من مسح هذا المنتج من شاشة العرض نهائياً؟")) {
-                let products = JSON.parse(localStorage.getItem('lamora_products')) || initialProducts;
-                products.splice(index, 1);
-                localStorage.setItem('lamora_products', JSON.stringify(products));
-                renderManagerList();
-                renderProducts();
+            const pass = document.getElementById('adminPass').value;
+            if (pass === "772007") {
+                alert("تم التحقق بنجاح! جاري تحويلك إلى لوحة تحكم Firebase المربوطة بـ Amr Group.");
+                document.getElementById('adminModal').classList.remove('open');
+                // هنا يتم وضع كود فتح الـ Dashboard أو التوجيه لها لاحقاً
+            } else {
+                alert("رمز المرور غير صحيح!");
             }
         }
 
-        window.onclick = function(e) { if (e.target == document.getElementById('adminModal')) closeAdminModal(); }
+        // إغلاق المودال عند الضغط في الخارج
+        window.onclick = function(event) {
+            const modal = document.getElementById('adminModal');
+            if (event.target == modal) {
+                modal.classList.remove('open');
+            }
+        }
     </script>
 </body>
 </html>
