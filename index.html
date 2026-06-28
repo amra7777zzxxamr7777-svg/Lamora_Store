@@ -4,23 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lamora Store | Premium Skincare</title>
+    
+    <meta name="description" content="لامورا ستور - منتجات عناية بالبشرة فاخرة ومصممة بعناية لإعادة التوهج الطبيعي لبشرتكِ بإشراف أ/ رواء محمد.">
+    <meta property="og:title" content="Lamora Store | Premium Skincare">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,650;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
             --primary-white: #ffffff;
-            --secondary-beige: #f4eae1;
-            --accent-gold: #d4af37;
-            --bg-cream: #faf7f2;
-            --text-black: #111111;
-            --text-gray: #777777;
-            --luxury-gold: linear-gradient(135deg, #b38728 0%, #fbf5b7 50%, #daa520 100%);
-            --hover-rose-gold: #b76e79;
-            --font-luxury: 'Playfair Display', 'Cairo', serif;
-            --font-body: 'Poppins', 'Cairo', sans-serif;
+            --cream-bg: #fdfbf7;
+            --soft-beige: #f5ece3;
+            --deep-gold: #c59b27;
+            --luxury-gold-gradient: linear-gradient(135deg, #ad7f24 0%, #f7e7a8 50%, #b3852b 100%);
+            --rose-bronze: #aa6c72;
+            --charcoal-black: #161615;
+            --muted-gray: #6e6e6a;
+            --font-serif: 'Playfair Display', 'Cairo', serif;
+            --font-sans: 'Poppins', 'Cairo', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         * {
@@ -31,132 +36,154 @@
         }
 
         body {
-            font-family: var(--font-body);
-            background-color: var(--bg-cream);
-            color: var(--text-black);
+            font-family: var(--font-sans);
+            background-color: var(--cream-bg);
+            color: var(--charcoal-black);
             overflow-x: hidden;
         }
 
-        /* 1. Opening Animation / Splash Screen */
+        /* 1. Splash Screen */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #0b0b0b;
+            background: #0f0f0e;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s ease, visibility 0.8s;
+            transition: opacity 0.6s ease, visibility 0.6s;
         }
 
         .splash-logo {
-            font-family: var(--font-luxury);
-            font-size: 3rem;
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
             color: transparent;
-            background: var(--luxury-gold);
+            background: var(--luxury-gold-gradient);
             -webkit-background-clip: text;
             background-clip: text;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
             opacity: 0;
-            animation: fadeIn 2s forwards ease-in-out;
+            animation: fadeIn 1.2s forwards ease-in-out;
         }
 
         .orbit-container {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 120px;
+            height: 120px;
             transform-style: preserve-3d;
-            animation: rotateOrbit 8s linear infinite;
+            animation: rotateOrbit 4s linear infinite;
         }
 
         .orbit-circle {
             position: absolute;
             width: 100%;
             height: 100%;
-            border: 1px dashed rgba(212, 175, 55, 0.4);
+            border: 1.5px dashed rgba(212, 175, 55, 0.35);
             border-radius: 50%;
-            transform: rotateX(75deg);
+            transform: rotateX(70deg);
         }
 
         .glow-particle {
             position: absolute;
-            width: 12px;
-            height: 12px;
-            background: var(--luxury-gold);
+            width: 10px;
+            height: 10px;
+            background: var(--luxury-gold-gradient);
             border-radius: 50%;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            box-shadow: 0 0 15px var(--accent-gold);
+            box-shadow: 0 0 12px var(--deep-gold);
         }
 
         /* 2. Header & Navigation */
         header {
             position: sticky;
             top: 0;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(197, 155, 39, 0.1);
             z-index: 1000;
-            padding: 15px 5%;
+            padding: 18px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: var(--font-luxury);
+            font-family: var(--font-serif);
             font-size: 1.8rem;
             font-weight: 700;
             cursor: pointer;
-            user-select: none;
-            background: var(--luxury-gold);
+            background: var(--luxury-gold-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            letter-spacing: 1px;
         }
 
         nav a {
             text-decoration: none;
-            color: var(--text-black);
-            margin: 0 15px;
+            color: var(--charcoal-black);
+            margin: 0 18px;
             font-size: 0.95rem;
-            font-weight: 400;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: var(--transition-smooth);
         }
 
         nav a:hover {
-            color: var(--hover-rose-gold);
+            color: var(--rose-bronze);
         }
 
         .header-icons {
             display: flex;
-            gap: 20px;
-            font-size: 1.2rem;
+            gap: 22px;
+            font-size: 1.25rem;
+            align-items: center;
+        }
+
+        .header-icons i {
             cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
         }
 
         .header-icons i:hover {
-            color: var(--hover-rose-gold);
+            color: var(--rose-bronze);
             transform: scale(1.1);
-            transition: 0.3s;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            left: -10px;
+            background: var(--rose-bronze);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-family: var(--font-sans);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.4rem;
+            cursor: pointer;
         }
 
         /* 3. Hero Section */
         .hero {
-            height: 85vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 8%;
-            background: radial-gradient(circle at 80%, #fbf9f6 0%, var(--bg-cream) 100%);
-            position: relative;
+            background: radial-gradient(circle at 85%, #fffbf6 0%, var(--cream-bg) 100%);
         }
 
         .hero-content {
@@ -164,17 +191,18 @@
         }
 
         .hero-content h1 {
-            font-family: var(--font-luxury);
-            font-size: 3.5rem;
+            font-family: var(--font-serif);
+            font-size: 3.6rem;
             line-height: 1.2;
-            margin-bottom: 20px;
-            color: var(--text-black);
+            margin-bottom: 22px;
+            color: var(--charcoal-black);
         }
 
         .hero-content p {
-            color: var(--text-gray);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            color: var(--muted-gray);
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 35px;
         }
 
         .hero-btns {
@@ -183,217 +211,313 @@
         }
 
         .btn-gold {
-            background: var(--luxury-gold);
-            color: #000;
+            background: var(--luxury-gold-gradient);
+            color: #111;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 4px;
-            transition: 0.4s;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
             text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(173, 127, 36, 0.15);
         }
 
         .btn-gold:hover {
-            background: var(--hover-rose-gold);
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.4);
+            background: linear-gradient(135deg, #161615 0%, #262624 100%);
+            color: var(--primary-white);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .btn-outline {
-            border: 1px solid var(--text-black);
+            border: 1.5px solid var(--charcoal-black);
             background: transparent;
-            color: var(--text-black);
-            padding: 12px 30px;
+            color: var(--charcoal-black);
+            padding: 14px 35px;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 4px;
-            transition: 0.3s;
+            border-radius: 6px;
+            transition: var(--transition-smooth);
         }
 
         .btn-outline:hover {
-            background: var(--text-black);
-            color: #fff;
+            background: var(--charcoal-black);
+            color: var(--primary-white);
         }
 
         .hero-image-container {
-            max-width: 45%;
-            position: relative;
+            max-width: 40%;
+            display: flex;
+            justify-content: center;
         }
 
         .hero-image-container img {
             width: 100%;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.1));
-            animation: float 4s ease-in-out infinite;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* شكل فني ناعم للفخامة */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            animation: float 5s ease-in-out infinite;
         }
 
         /* 4. About Section */
         .about-section {
-            padding: 80px 10%;
+            padding: 100px 12%;
             background: var(--primary-white);
             text-align: center;
-            border-top: 1px solid var(--secondary-beige);
+            border-top: 1px solid var(--soft-beige);
         }
 
         .about-title {
-            font-family: var(--font-luxury);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
+            margin-bottom: 25px;
         }
 
         .about-text {
-            font-size: 1.1rem;
-            color: var(--text-gray);
-            max-width: 800px;
-            margin: 0 auto 10px;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            color: var(--muted-gray);
+            max-width: 850px;
+            margin: 0 auto 15px;
+            line-height: 1.9;
         }
 
-        /* 5. Products Grid & Skeleton */
+        /* 5. Products Section */
         .products-section {
-            padding: 60px 8%;
+            padding: 80px 8%;
         }
 
         .section-title {
-            font-family: var(--font-luxury);
-            font-size: 2.5rem;
+            font-family: var(--font-serif);
+            font-size: 2.6rem;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 35px;
         }
 
-        /* Glass Product Card */
         .product-card {
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(5px);
-            border-radius: 12px;
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
             position: relative;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+            transition: var(--transition-smooth);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.15);
-            border-color: var(--accent-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(197, 155, 39, 0.12);
+            border-color: rgba(197, 155, 39, 0.3);
         }
 
         .product-badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--hover-rose-gold);
+            top: 18px;
+            right: 18px;
+            background: var(--rose-bronze);
             color: white;
-            padding: 4px 10px;
+            padding: 5px 12px;
             font-size: 0.75rem;
-            border-radius: 20px;
+            border-radius: 30px;
             font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
         .product-card img {
             width: 100%;
             height: 220px;
             object-fit: contain;
-            transition: transform 0.4s;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            transition: var(--transition-smooth);
         }
 
         .product-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
         .product-name {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            color: var(--charcoal-black);
         }
 
         .product-price {
-            font-size: 1.1rem;
-            color: var(--text-black);
+            font-size: 1.2rem;
+            color: var(--charcoal-black);
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .product-price span {
             text-decoration: line-through;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            margin-right: 8px;
+            color: var(--muted-gray);
+            font-size: 0.95rem;
+            margin-right: 10px;
         }
 
-        .card-btns {
+        /* 6. Shopping Cart Drawer */
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 380px;
+            height: 100%;
+            background: var(--primary-white);
+            box-shadow: 5px 0 30px rgba(0,0,0,0.15);
+            z-index: 4000;
+            transition: var(--transition-smooth);
+            padding: 30px 25px;
             display: flex;
-            justify-content: center;
-            gap: 10px;
+            flex-direction: column;
         }
 
-        .card-btns button, .card-btns a {
-            padding: 10px 15px;
-            border-radius: 4px;
-            border: none;
+        .cart-drawer.open {
+            left: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--soft-beige);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .cart-header h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+        }
+
+        .close-cart {
+            font-size: 1.4rem;
             cursor: pointer;
-            font-weight: 600;
+            transition: var(--transition-smooth);
         }
 
-        /* Skeleton Loading Style */
+        .close-cart:hover {
+            color: var(--rose-bronze);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            font-size: 0.9rem;
+            color: var(--deep-gold);
+            font-weight: 700;
+        }
+
+        .remove-item {
+            color: #d9534f;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .cart-footer {
+            border-top: 1px solid var(--soft-beige);
+            padding-top: 20px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Skeleton Loading */
         .skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background: linear-gradient(90deg, #f3ede6 25%, #eae2d8 50%, #f3ede6 75%);
             background-size: 200% 100%;
             animation: loading 1.5s infinite;
         }
         .skeleton-card {
-            height: 380px;
-            border-radius: 12px;
+            height: 390px;
+            border-radius: 16px;
             background: #fff;
-            padding: 20px;
         }
 
-        /* 6. Live Order Notification Popup */
+        /* Live Notifications */
         #live-notification {
             position: fixed;
-            bottom: 20px;
-            left: 20px;
+            bottom: 25px;
+            right: 25px; /* تم تعديلها لتناسب الاتجاه العربي بشكل أرتب */
             background: rgba(255, 255, 255, 0.95);
-            border-right: 4px solid var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            padding: 15px 25px;
+            border-right: 4px solid var(--deep-gold);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            padding: 16px 25px;
             border-radius: 8px;
             z-index: 2000;
             display: flex;
             align-items: center;
             gap: 15px;
-            transform: translateY(150%);
+            transform: translateY(180%);
             transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 350px;
         }
 
         #live-notification.show {
             transform: translateY(0);
         }
 
-        /* 7. Hidden Admin Dashboard Popup */
+        /* Admin Box */
         .admin-modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            z-index: 3000;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            z-index: 5000;
             display: flex;
             justify-content: center;
             align-items: center;
             opacity: 0;
             pointer-events: none;
-            transition: 0.4s;
+            transition: var(--transition-smooth);
         }
 
         .admin-modal.open {
@@ -403,68 +527,88 @@
 
         .admin-box {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 35px;
+            border-radius: 16px;
             width: 90%;
             max-width: 400px;
             text-align: center;
-            border: 1px solid var(--accent-gold);
+            border: 1px solid var(--deep-gold);
         }
 
         .admin-box input {
             width: 100%;
-            padding: 12px;
-            margin: 15px 0;
-            border: 1px solid var(--secondary-beige);
-            border-radius: 4px;
+            padding: 14px;
+            margin: 18px 0;
+            border: 1px solid var(--soft-beige);
+            border-radius: 6px;
             text-align: center;
+            font-size: 1.1rem;
         }
 
         /* Footer */
         footer {
-            background: #0b0b0b;
+            background: #0d0d0c;
             color: #fff;
-            padding: 40px 5% 20px;
+            padding: 50px 6% 25px;
             text-align: center;
-            border-top: 3px solid var(--accent-gold);
+            border-top: 3px solid var(--deep-gold);
         }
 
         .footer-logo {
-            font-family: var(--font-luxury);
-            font-size: 2rem;
-            background: var(--luxury-gold);
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            background: var(--luxury-gold-gradient);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        /* Animations Keyframes */
+        /* Keyframes */
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes rotateOrbit { to { transform: rotateY(360deg); } }
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+            50% { transform: translateY(-12px); }
         }
         @keyframes loading {
             0% { background-position: 200% 0; }
             100% { background-position: -200% 0; }
         }
 
-        /* Responsive Layout */
-        @media (max-width: 768px) {
-            header { padding: 15px 4%; }
-            nav { display: none; }
-            .hero { flex-direction: column-reverse; height: auto; padding: 40px 5%; text-align: center; gap: 30px;}
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero { flex-direction: column-reverse; height: auto; padding: 60px 6%; text-align: center; gap: 40px;}
             .hero-content { max-width: 100%; }
-            .hero-image-container { max-width: 80%; }
-            .hero-content h1 { font-size: 2.3rem; }
+            .hero-image-container { max-width: 65%; }
+            .hero-content h1 { font-size: 2.8rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav { display: none; }
+            .menu-toggle { display: block; }
+            .cart-drawer { width: 100%; }
+            
+            /* تصميم قائمة الموبايل المنسدلة */
+            nav.mobile-open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--cream-bg);
+                padding: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                border-bottom: 1px solid var(--soft-beige);
+            }
+            nav.mobile-open a { margin: 10px 0; }
         }
     </style>
 </head>
 <body>
 
-    <div id="#splash-screen" style="display: none;"></div> <div id="splash-screen">
+    <div id="splash-screen">
         <div class="splash-logo">LAMORA STORE</div>
         <div class="orbit-container">
             <div class="orbit-circle"><div class="glow-particle"></div></div>
@@ -472,8 +616,9 @@
     </div>
 
     <header>
+        <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
         <div class="logo" id="header-logo">LAMORA STORE</div>
-        <nav>
+        <nav id="navbar">
             <a href="#home">الرئيسية</a>
             <a href="#products">المنتجات</a>
             <a href="#about">عن لامورا</a>
@@ -481,17 +626,16 @@
         </nav>
         <div class="header-icons">
             <i class="fas fa-search"></i>
-            <i class="fas fa-heart"></i>
-            <i class="fas fa-shopping-bag"></i>
+            <i class="fas fa-shopping-bag" id="cartIcon"><span class="cart-count" id="cartCount">0</span></i>
         </div>
     </header>
 
     <section class="hero" id="home">
         <div class="hero-content">
             <h1>Reveal Your Natural Beauty</h1>
-            <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى.</p>
+            <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى، بإشراف وتطوير أستاذة رواء محمد.</p>
             <div class="hero-btns">
-                <a href="#products" class="btn-gold">تسوقي الآن</a>
+                <a href="#products" class="btn-gold">تسوقي الآن <i class="fas fa-arrow-left"></i></a>
                 <button class="btn-outline">اكتشفي المجموعة</button>
             </div>
         </div>
@@ -505,7 +649,7 @@
         <p class="about-text">
             في Lamora Store، نؤمن أن البشرة النضرة ليست مجرد مظهر، بل هي انعكاس لثقتكِ الداخلية. تأسس البراند برؤية وشغف من الأستاذة <strong>رواء محمد</strong>، لتقديم تجربة عناية استثنائية تضاهي المنتجات العالمية.
         </p>
-        <p class="about-text" style="font-style: italic; color: var(--accent-gold);">
+        <p class="about-text" style="font-style: italic; color: var(--deep-gold); font-weight: 600;">
             "نحن لا نبيع مجرد مستحضرات، بل ننتقي لكِ بعناية فائقة تركيبات فاخرة غنية بالمكونات الطبيعية الفعالة لتعيد لبشرتكِ توهجها الطبيعي."
         </p>
     </section>
@@ -521,95 +665,196 @@
 
         <div class="products-grid" id="real-products" style="display: none;">
             
-            <div class="product-card">
+            <div class="product-card" data-id="1" data-name="سيروم الذهب والنضارة الملكي" data-price="450" data-img="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80">
                 <span class="product-badge">SALE</span>
                 <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" alt="Serum">
                 <div class="product-name">سيروم الذهب والنضارة الملكي</div>
                 <div class="product-price">450 ج.م <span>650 ج.م</span></div>
-                <div class="card-btns">
-                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20سيروم%20الذهب%20والنضارة%20الملكي" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
-                </div>
+                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-id="2" data-name="كريم الترطيب المخملي الشامل" data-price="390" data-img="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80">
                 <span class="product-badge">الأكثر مبيعاً</span>
                 <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" alt="Cream">
                 <div class="product-name">كريم الترطيب المخملي الشامل</div>
                 <div class="product-price">390 ج.م</div>
-                <div class="card-btns">
-                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20كريم%20الترطيب%20المخملي%20الشامل" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
-                </div>
+                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
             </div>
 
-            <div class="product-card">
+            <div class="product-card" data-id="3" data-name="غسول رغوي مهدئ للبشرة" data-price="320" data-img="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80">
                 <span class="product-badge">جديد</span>
                 <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Facial Wash">
                 <div class="product-name">غسول رغوي مهدئ للبشرة</div>
                 <div class="product-price">320 ج.م <span>400 ج.م</span></div>
-                <div class="card-btns">
-                    <a href="https://wa.me/201554369459?text=مرحباً%20Lamora%20Store،%20أود%20طلب%20منتج:%20غسول%20رغوي%20مهدئ%20للبشرة" target="_blank" class="btn-gold"><i class="fab fa-whatsapp"></i> طلب سريع</a>
-                </div>
+                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
             </div>
 
         </div>
     </section>
 
+    <div class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>حقيبة المشتريات</h3>
+            <div class="close-cart" id="closeCart"><i class="fas fa-times"></i></div>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>الإجمالي:</span>
+                <span id="cartTotalAmount">0 ج.م</span>
+            </div>
+            <button class="btn-gold" style="width: 100%; justify-content: center;" id="checkoutBtn"><i class="fab fa-whatsapp"></i> تأكيد الطلب عبر الواتساب</button>
+        </div>
+    </div>
+
     <div id="live-notification">
-        <i class="fas fa-shopping-bag" style="color: var(--accent-gold); font-size: 1.3rem;"></i>
+        <i class="fas fa-shopping-bag" style="color: var(--deep-gold); font-size: 1.3rem;"></i>
         <div id="notification-text">يقوم أحد العملاء بتصفح الموقع الآن...</div>
     </div>
 
     <div class="admin-modal" id="adminModal">
         <div class="admin-box">
-            <h3 style="font-family: var(--font-luxury); margin-bottom: 10px;">لوحة التحكم السرية</h3>
-            <p style="font-size: 0.85rem; color: var(--text-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard</p>
+            <h3 style="font-family: var(--font-serif); margin-bottom: 10px;">لوحة التحكم السرية</h3>
+            <p style="font-size: 0.85rem; color: var(--muted-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard</p>
             <input type="password" id="adminPass" placeholder="••••••">
-            <button class="btn-gold" style="width:100%;" onclick="checkAdminPassword()">دخول</button>
+            <button class="btn-gold" style="width:100%; justify-content: center;" onclick="checkAdminPassword()">دخول</button>
         </div>
     </div>
 
     <footer id="footer">
         <div class="footer-logo">LAMORA STORE</div>
-        <p style="color: var(--secondary-beige); font-size: 0.9rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
-        <p style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
-        <p style="font-size: 0.9rem; margin-bottom: 20px;">للتواصل المباشر: 01554369459</p>
+        <p style="color: var(--soft-beige); font-size: 0.95rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
+        <p style="font-size: 0.85rem; color: var(--muted-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
+        <p style="font-size: 0.95rem; margin-bottom: 20px;">للتواصل المباشر: 01554369459</p>
         <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
         <p style="font-size: 0.8rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة لمديرة البراند أ/ رواء محمد</p>
     </footer>
 
     <script>
-        // A. Handling Splash Screen
+        // A. Handling Splash Screen & Fake Loader (تم تسريع الوقت لتجربة مستخدم أفضل وأفخم)
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
-                setTimeout(() => splash.style.display = 'none', 800);
-            }, 4000); // يستغرق 4 ثوانٍ ليعطي انطباع الفخامة والأناقة
+                setTimeout(() => splash.style.display = 'none', 600);
+            }, 2000); // 2 ثانية مثالية جداً
 
-            // B. Handling Mock Loading / Skeleton
             setTimeout(() => {
                 document.getElementById('skeleton-container').style.display = 'none';
                 document.getElementById('real-products').style.display = 'grid';
-            }, 5500);
+            }, 3200);
         });
 
-        // C. Live Social Proof (تغيير الزيارات والمحافظات كل 10 ثوانٍ)
+        // B. Mobile Menu Responsive Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navbar = document.getElementById('navbar');
+        menuToggle.addEventListener('click', () => {
+            navbar.classList.toggle('mobile-open');
+        });
+
+        // C. Interactive Shopping Cart System (النظام الاحترافي الجديد)
+        let cart = [];
+        const cartIcon = document.getElementById('cartIcon');
+        const cartDrawer = document.getElementById('cartDrawer');
+        const closeCart = document.getElementById('closeCart');
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotalAmount = document.getElementById('cartTotalAmount');
+
+        // فتح وإغلاق السلة
+        cartIcon.addEventListener('click', () => cartDrawer.classList.add('open'));
+        closeCart.addEventListener('click', () => cartDrawer.classList.remove('open'));
+
+        // إضافة حدث أزرار "إضافة للسلة"
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.product-card');
+                const id = card.getAttribute('data-id');
+                const name = card.getAttribute('data-name');
+                const price = parseInt(card.getAttribute('data-price'));
+                const img = card.getAttribute('data-img');
+
+                addToCart(id, name, price, img);
+                cartDrawer.classList.add('open'); // فتح السلة تلقائياً للتأكيد
+            });
+        });
+
+        function addToCart(id, name, price, img) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, img, quantity: 1 });
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let totalItems = 0;
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                totalItems += item.quantity;
+
+                cartItemsContainer.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.img}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">${item.price} ج.م × ${item.quantity}</div>
+                        </div>
+                        <div class="remove-item" onclick="removeFromCart('${item.id}')"><i class="fas fa-trash"></i></div>
+                    </div>
+                `;
+            });
+
+            cartCount.innerText = totalItems;
+            cartTotalAmount.innerText = total + ' ج.م';
+        }
+
+        // إرسال الطلبات كاملة مجمعة إلى الواتساب
+        document.getElementById('checkoutBtn').addEventListener('click', () => {
+            if(cart.length === 0) {
+                alert("سلة المشتريات فارغة!");
+                return;
+            }
+            
+            let message = "مرحباً Lamora Store، أود طلب المنتجات التالية:\n\n";
+            let total = 0;
+            cart.forEach(item => {
+                message += `• *${item.name}* (الكمية: ${item.quantity}) - السعر: ${item.price * item.quantity} ج.م\n`;
+                total += item.price * item.quantity;
+            });
+            message += `\n💰 *الإجمالي الكلي:* ${total} ج.م\n\nبرجاء تأكيد الطلب والشحن.`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/201554369459?text=${encodedMessage}`, '_blank');
+        });
+
+        // D. Live Social Proof (تغيير الزيارات والمحافظات كل 10 ثوانٍ)
         const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.', 'رنا ط.', 'نور هـ.'];
-        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الأسماعيلية'];
-        const products = ['سيروم الذهب الملكي', 'كريم الترطيب المخملي', 'مجموعة النضارة المتكاملة', 'غسول رغوي مهدئ'];
+        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الإسماعيلية'];
+        const products = ['سيروم الذهب الملكي', 'كريم الترطيب المخملي', 'غسول رغوي مهدئ'];
         
         function showLiveNotification() {
             const notification = document.getElementById('live-notification');
             const textEl = document.getElementById('notification-text');
             
-            // اختيار بيانات عشوائية
             const randomName = names[Math.floor(Math.random() * names.length)];
             const randomCity = cities[Math.floor(Math.random() * cities.length)];
             const randomProduct = products[Math.floor(Math.random() * products.length)];
             const randomNum = Math.floor(100 + Math.random() * 900);
 
             const templates = [
-                `✨ اشترت أستاذة (${randomName} من ${randomCity} - 010***${randomNum}) "${randomProduct}" قبل قليل.`,
+                `✨ اشترت أستاذة (${randomName} من ${randomCity}) "${randomProduct}" قبل قليل.`,
                 `🔥 عميل من (${randomCity}) يقوم بتصفح "${randomProduct}" الآن.`,
                 `⭐ قيمت أستاذة (${randomName}) بخمس نجوم: "المنتج رائع وفرق في نضارة بشرتي جداً!"`
             ];
@@ -617,16 +862,13 @@
             textEl.innerHTML = templates[Math.floor(Math.random() * templates.length)];
             notification.classList.add('show');
 
-            // إخفاء بعد 4 ثوانٍ
             setTimeout(() => {
                 notification.classList.remove('show');
             }, 4000);
         }
-
-        // تشغيل الإشعار التفاعلي المتكرر كل 10 ثوانٍ
         setInterval(showLiveNotification, 10000);
 
-        // D. Hidden Admin Easter Egg (الضغط 3 مرات متتالية)
+        // E. Hidden Admin Easter Egg
         let clickCount = 0;
         const logoBtn = document.getElementById('header-logo');
         
@@ -634,9 +876,8 @@
             clickCount++;
             if (clickCount === 3) {
                 document.getElementById('adminModal').classList.add('open');
-                clickCount = 0; // إعادة التصفير
+                clickCount = 0;
             }
-            // تصفير العداد التلقائي إذا لم تكن الضغطات متتالية سريعة
             setTimeout(() => { clickCount = 0; }, 2000);
         });
 
@@ -645,13 +886,11 @@
             if (pass === "772007") {
                 alert("تم التحقق بنجاح! جاري تحويلك إلى لوحة تحكم Firebase المربوطة بـ Amr Group.");
                 document.getElementById('adminModal').classList.remove('open');
-                // هنا يتم وضع كود فتح الـ Dashboard أو التوجيه لها لاحقاً
             } else {
                 alert("رمز المرور غير صحيح!");
             }
         }
 
-        // إغلاق المودال عند الضغط في الخارج
         window.onclick = function(event) {
             const modal = document.getElementById('adminModal');
             if (event.target == modal) {
