@@ -13,6 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,650;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
     <style>
         :root {
             --primary-white: #ffffff;
@@ -124,7 +127,6 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            letter-spacing: 1px;
         }
 
         nav a {
@@ -136,9 +138,7 @@
             transition: var(--transition-smooth);
         }
 
-        nav a:hover {
-            color: var(--rose-bronze);
-        }
+        nav a:hover { color: var(--rose-bronze); }
 
         .header-icons {
             display: flex;
@@ -153,10 +153,7 @@
             position: relative;
         }
 
-        .header-icons i:hover {
-            color: var(--rose-bronze);
-            transform: scale(1.1);
-        }
+        .header-icons i:hover { color: var(--rose-bronze); }
 
         .cart-count {
             position: absolute;
@@ -167,14 +164,9 @@
             font-size: 0.7rem;
             padding: 2px 6px;
             border-radius: 50%;
-            font-family: var(--font-sans);
         }
 
-        .menu-toggle {
-            display: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-        }
+        .menu-toggle { display: none; font-size: 1.4rem; cursor: pointer; }
 
         /* 3. Hero Section */
         .hero {
@@ -186,16 +178,13 @@
             background: radial-gradient(circle at 85%, #fffbf6 0%, var(--cream-bg) 100%);
         }
 
-        .hero-content {
-            max-width: 50%;
-        }
+        .hero-content { max-width: 50%; }
 
         .hero-content h1 {
             font-family: var(--font-serif);
             font-size: 3.6rem;
             line-height: 1.2;
             margin-bottom: 22px;
-            color: var(--charcoal-black);
         }
 
         .hero-content p {
@@ -205,10 +194,7 @@
             margin-bottom: 35px;
         }
 
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-        }
+        .hero-btns { display: flex; gap: 15px; }
 
         .btn-gold {
             background: var(--luxury-gold-gradient);
@@ -229,7 +215,6 @@
         .btn-gold:hover {
             background: linear-gradient(135deg, #161615 0%, #262624 100%);
             color: var(--primary-white);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
         .btn-outline {
@@ -243,63 +228,75 @@
             transition: var(--transition-smooth);
         }
 
-        .btn-outline:hover {
-            background: var(--charcoal-black);
-            color: var(--primary-white);
-        }
+        .btn-outline:hover { background: var(--charcoal-black); color: var(--primary-white); }
 
-        .hero-image-container {
-            max-width: 40%;
-            display: flex;
-            justify-content: center;
-        }
+        .hero-image-container { max-width: 40%; display: flex; justify-content: center; }
 
         .hero-image-container img {
             width: 100%;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; /* شكل فني ناعم للفخامة */
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             box-shadow: 0 20px 40px rgba(0,0,0,0.08);
             animation: float 5s ease-in-out infinite;
         }
 
         /* 4. About Section */
         .about-section {
-            padding: 100px 12%;
+            padding: 80px 12%;
             background: var(--primary-white);
             text-align: center;
             border-top: 1px solid var(--soft-beige);
         }
 
-        .about-title {
-            font-family: var(--font-serif);
-            font-size: 2.6rem;
-            margin-bottom: 25px;
+        .about-title { font-family: var(--font-serif); font-size: 2.6rem; margin-bottom: 25px; }
+
+        .about-text { font-size: 1.15rem; color: var(--muted-gray); max-width: 850px; margin: 0 auto 15px; line-height: 1.9; }
+
+        /* 5. Bundles Section & Countdown */
+        .bundles-section { padding: 60px 8%; background: #faf4ee; }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        .about-text {
-            font-size: 1.15rem;
-            color: var(--muted-gray);
-            max-width: 850px;
-            margin: 0 auto 15px;
-            line-height: 1.9;
-        }
-
-        /* 5. Products Section */
-        .products-section {
-            padding: 80px 8%;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2.6rem;
+        .countdown-box {
+            background: var(--charcoal-black);
+            color: var(--deep-gold);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            min-width: 70px;
             text-align: center;
-            margin-bottom: 50px;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 35px;
+        .countdown-box span { display: block; color: #fff; font-size: 0.75rem; font-weight: 300; }
+
+        /* 6. Quiz Section */
+        .quiz-section { padding: 80px 12%; background: var(--primary-white); text-align: center; border-radius: 20px; margin: 40px 8%; box-shadow: 0 10px 30px rgba(0,0,0,0.02); }
+
+        .quiz-options { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+
+        .quiz-card {
+            background: var(--cream-bg);
+            border: 1px solid var(--soft-beige);
+            padding: 20px 30px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-weight: 600;
         }
+
+        .quiz-card:hover, .quiz-card.active { border-color: var(--deep-gold); background: var(--soft-beige); }
+
+        /* 7. Products Section */
+        .products-section { padding: 80px 8%; }
+
+        .section-title { font-family: var(--font-serif); font-size: 2.6rem; text-align: center; margin-bottom: 50px; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 35px; }
 
         .product-card {
             background: rgba(255, 255, 255, 0.75);
@@ -311,297 +308,100 @@
             text-align: center;
             position: relative;
             transition: var(--transition-smooth);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(197, 155, 39, 0.12);
-            border-color: rgba(197, 155, 39, 0.3);
-        }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(197, 155, 39, 0.12); }
 
-        .product-badge {
-            position: absolute;
-            top: 18px;
-            right: 18px;
-            background: var(--rose-bronze);
-            color: white;
-            padding: 5px 12px;
-            font-size: 0.75rem;
-            border-radius: 30px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
+        .product-badge { position: absolute; top: 18px; right: 18px; background: var(--rose-bronze); color: white; padding: 5px 12px; font-size: 0.75rem; border-radius: 30px; font-weight: 600; }
 
-        .product-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            transition: var(--transition-smooth);
-        }
+        .product-card img { width: 100%; height: 220px; object-fit: contain; margin-bottom: 20px; }
 
-        .product-card:hover img {
-            transform: scale(1.06);
-        }
+        .product-name { font-size: 1.15rem; font-weight: 600; margin-bottom: 10px; }
 
-        .product-name {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--charcoal-black);
-        }
+        .product-price { font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
 
-        .product-price {
-            font-size: 1.2rem;
-            color: var(--charcoal-black);
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+        .product-price span { text-decoration: line-through; color: var(--muted-gray); font-size: 0.95rem; margin-right: 10px; }
 
-        .product-price span {
-            text-decoration: line-through;
-            color: var(--muted-gray);
-            font-size: 0.95rem;
-            margin-right: 10px;
-        }
+        /* 8. Reviews Section */
+        .reviews-section { padding: 80px 8%; background: var(--cream-bg); text-align: center; }
 
-        /* 6. Shopping Cart Drawer */
-        .cart-drawer {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: 380px;
-            height: 100%;
-            background: var(--primary-white);
-            box-shadow: 5px 0 30px rgba(0,0,0,0.15);
-            z-index: 4000;
-            transition: var(--transition-smooth);
-            padding: 30px 25px;
-            display: flex;
-            flex-direction: column;
-        }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
 
-        .cart-drawer.open {
-            left: 0;
-        }
+        .review-card { background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--soft-beige); text-align: right; }
 
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--soft-beige);
-            padding-bottom: 15px;
-            margin-bottom: 20px;
-        }
+        .stars { color: var(--deep-gold); margin-bottom: 10px; }
 
-        .cart-header h3 {
-            font-family: var(--font-serif);
-            font-size: 1.4rem;
-        }
+        /* 9. Shopping Cart Drawer */
+        .cart-drawer { position: fixed; top: 0; left: -100%; width: 380px; height: 100%; background: var(--primary-white); box-shadow: 5px 0 30px rgba(0,0,0,0.15); z-index: 4000; transition: var(--transition-smooth); padding: 30px 25px; display: flex; flex-direction: column; }
 
-        .close-cart {
-            font-size: 1.4rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
+        .cart-drawer.open { left: 0; }
 
-        .close-cart:hover {
-            color: var(--rose-bronze);
-        }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--soft-beige); padding-bottom: 15px; margin-bottom: 20px; }
 
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-        }
+        .cart-header h3 { font-family: var(--font-serif); font-size: 1.4rem; }
 
-        .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 12px 0;
-            border-bottom: 1px solid #f9f9f9;
-        }
+        .close-cart { font-size: 1.4rem; cursor: pointer; }
 
-        .cart-item img {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
+        .cart-items { flex: 1; overflow-y: auto; }
 
-        .cart-item-details {
-            flex: 1;
-        }
+        .cart-item { display: flex; align-items: center; gap: 15px; padding: 12px 0; border-bottom: 1px solid #f9f9f9; }
 
-        .cart-item-name {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
+        .cart-item img { width: 60px; height: 60px; object-fit: contain; }
 
-        .cart-item-price {
-            font-size: 0.9rem;
-            color: var(--deep-gold);
-            font-weight: 700;
-        }
+        .cart-item-details { flex: 1; }
 
-        .remove-item {
-            color: #d9534f;
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
+        .remove-item { color: #d9534f; cursor: pointer; }
 
-        .cart-footer {
-            border-top: 1px solid var(--soft-beige);
-            padding-top: 20px;
-        }
+        .cart-footer { border-top: 1px solid var(--soft-beige); padding-top: 20px; }
 
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
+        .cart-total { display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: 700; margin-bottom: 20px; }
 
-        /* Skeleton Loading */
-        .skeleton {
-            background: linear-gradient(90deg, #f3ede6 25%, #eae2d8 50%, #f3ede6 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        .skeleton-card {
-            height: 390px;
-            border-radius: 16px;
-            background: #fff;
-        }
+        /* 10. Thank You Modal */
+        .thankyou-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 6000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
 
-        /* Live Notifications */
-        #live-notification {
-            position: fixed;
-            bottom: 25px;
-            right: 25px; /* تم تعديلها لتناسب الاتجاه العربي بشكل أرتب */
-            background: rgba(255, 255, 255, 0.95);
-            border-right: 4px solid var(--deep-gold);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-            padding: 16px 25px;
-            border-radius: 8px;
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transform: translateY(180%);
-            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 350px;
-        }
+        .thankyou-modal.open { opacity: 1; pointer-events: auto; }
 
-        #live-notification.show {
-            transform: translateY(0);
-        }
+        .thankyou-box { background: #fff; padding: 40px; border-radius: 20px; text-align: center; max-width: 450px; width: 90%; border: 2px solid var(--deep-gold); }
+
+        .thankyou-box i { font-size: 4rem; color: var(--rose-bronze); margin-bottom: 20px; }
+
+        /* Skeletons & Notifications */
+        .skeleton { background: linear-gradient(90deg, #f3ede6 25%, #eae2d8 50%, #f3ede6 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+        .skeleton-card { height: 390px; border-radius: 16px; }
+
+        #live-notification { position: fixed; bottom: 25px; right: 25px; background: rgba(255, 255, 255, 0.95); border-right: 4px solid var(--deep-gold); box-shadow: 0 12px 30px rgba(0,0,0,0.08); padding: 16px 25px; border-radius: 8px; z-index: 2000; display: flex; align-items: center; gap: 15px; transform: translateY(180%); transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); max-width: 350px; }
+        #live-notification.show { transform: translateY(0); }
 
         /* Admin Box */
-        .admin-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(6px);
-            z-index: 5000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition-smooth);
-        }
-
-        .admin-modal.open {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .admin-box {
-            background: white;
-            padding: 35px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-            border: 1px solid var(--deep-gold);
-        }
-
-        .admin-box input {
-            width: 100%;
-            padding: 14px;
-            margin: 18px 0;
-            border: 1px solid var(--soft-beige);
-            border-radius: 6px;
-            text-align: center;
-            font-size: 1.1rem;
-        }
+        .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); z-index: 5000; display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
+        .admin-modal.open { opacity: 1; pointer-events: auto; }
+        .admin-box { background: white; padding: 35px; border-radius: 16px; width: 90%; max-width: 500px; text-align: center; border: 1px solid var(--deep-gold); max-height: 85vh; overflow-y: auto; }
+        .admin-box input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--soft-beige); border-radius: 6px; text-align: center; }
 
         /* Footer */
-        footer {
-            background: #0d0d0c;
-            color: #fff;
-            padding: 50px 6% 25px;
-            text-align: center;
-            border-top: 3px solid var(--deep-gold);
-        }
-
-        .footer-logo {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            background: var(--luxury-gold-gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 12px;
-        }
+        footer { background: #0d0d0c; color: #fff; padding: 50px 6% 25px; text-align: center; border-top: 3px solid var(--deep-gold); }
+        .footer-logo { font-family: var(--font-serif); font-size: 2.2rem; background: var(--luxury-gold-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 12px; }
 
         /* Keyframes */
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes rotateOrbit { to { transform: rotateY(360deg); } }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        /* Responsive Design */
         @media (max-width: 992px) {
             .hero { flex-direction: column-reverse; height: auto; padding: 60px 6%; text-align: center; gap: 40px;}
             .hero-content { max-width: 100%; }
             .hero-image-container { max-width: 65%; }
             .hero-content h1 { font-size: 2.8rem; }
         }
-
         @media (max-width: 768px) {
             nav { display: none; }
             .menu-toggle { display: block; }
             .cart-drawer { width: 100%; }
-            
-            /* تصميم قائمة الموبايل المنسدلة */
-            nav.mobile-open {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--cream-bg);
-                padding: 20px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-                border-bottom: 1px solid var(--soft-beige);
-            }
+            nav.mobile-open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: var(--cream-bg); padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
             nav.mobile-open a { margin: 10px 0; }
         }
     </style>
@@ -620,9 +420,10 @@
         <div class="logo" id="header-logo">LAMORA STORE</div>
         <nav id="navbar">
             <a href="#home">الرئيسية</a>
+            <a href="#bundles">العروض الفاخرة</a>
+            <a href="#quiz">مستشار البشرة</a>
             <a href="#products">المنتجات</a>
             <a href="#about">عن لامورا</a>
-            <a href="#footer">اتصلي بنا</a>
         </nav>
         <div class="header-icons">
             <i class="fas fa-search"></i>
@@ -636,7 +437,7 @@
             <p>اكتشفي الفخامة الحقيقية والنضارة الفائقة مع مستحضرات العناية المصممة بعناية لتمنح بشرتك توهجاً ملكياً لا يضاهى، بإشراف وتطوير أستاذة رواء محمد.</p>
             <div class="hero-btns">
                 <a href="#products" class="btn-gold">تسوقي الآن <i class="fas fa-arrow-left"></i></a>
-                <button class="btn-outline">اكتشفي المجموعة</button>
+                <a href="#quiz" class="btn-outline">اختبار نوع البشرة</a>
             </div>
         </div>
         <div class="hero-image-container">
@@ -646,49 +447,67 @@
 
     <section class="about-section" id="about">
         <h2 class="about-title">عن Lamora Store</h2>
-        <p class="about-text">
-            في Lamora Store، نؤمن أن البشرة النضرة ليست مجرد مظهر، بل هي انعكاس لثقتكِ الداخلية. تأسس البراند برؤية وشغف من الأستاذة <strong>رواء محمد</strong>، لتقديم تجربة عناية استثنائية تضاهي المنتجات العالمية.
-        </p>
-        <p class="about-text" style="font-style: italic; color: var(--deep-gold); font-weight: 600;">
-            "نحن لا نبيع مجرد مستحضرات، بل ننتقي لكِ بعناية فائقة تركيبات فاخرة غنية بالمكونات الطبيعية الفعالة لتعيد لبشرتكِ توهجها الطبيعي."
-        </p>
+        <p class="about-text">في Lamora Store، نؤمن أن البشرة النضرة ليست مجرد مظهر، بل هي انعكاس لثقتكِ الداخلية. تأسس البراند برؤية وشغف من الأستاذة <strong>رواء محمد</strong>، لتقديم تجربة تضاهي البراندات العالمية بتركيبات طبيعية فاخرة.</p>
+    </section>
+
+    <section class="bundles-section" id="bundles">
+        <h2 class="section-title">باكجات العناية الكاملة الحصرية</h2>
+        <div class="countdown-container">
+            <div class="countdown-box" id="days">00<span>أيام</span></div>
+            <div class="countdown-box" id="hours">00<span>ساعات</span></div>
+            <div class="countdown-box" id="minutes">00<span>دقائق</span></div>
+            <div class="countdown-box" id="seconds">00<span>ثواني</span></div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card" data-id="B1" data-name="كورسات النضارة المتكامل (الملكي)" data-price="990" data-img="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=400&q=80">
+                <span class="product-badge" style="background:var(--deep-gold)">توفير 15%</span>
+                <img src="https://images.unsplash.com/photo-1612817288484-6f916006741a?auto=format&fit=crop&w=400&q=80" alt="Bundle">
+                <div class="product-name">الكورس الملكي المتكامل (سيروم + كريم + غسول)</div>
+                <div class="product-price">990 ج.م <span>1160 ج.م</span></div>
+                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة المجموعة للسلة</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="quiz-section" id="quiz">
+        <h2 class="section-title">مستشاركِ الذكي لنوع البشرة</h2>
+        <p style="color: var(--muted-gray); margin-bottom: 20px;">جاوبي على السؤال التالي لنرشح لكِ الروتين الفاخر الأنسب لبشرتكِ فوراً:</p>
+        <h3>ما هي المشكلة الأساسية التي تواجه بشرتكِ حالياً؟</h3>
+        <div class="quiz-options">
+            <div class="quiz-card" onclick="selectQuizOption('dry')">🍂 الجفاف الشديد وقشور البشرة</div>
+            <div class="quiz-card" onclick="selectQuizOption('oily')">✨ اللمعان الزائد وظهور حبوب</div>
+            <div class="quiz-card" onclick="selectQuizOption('dull')">🌪️ البهتان وفقدان النضارة الحيوية</div>
+        </div>
+        <div id="quiz-result" style="margin-top: 30px; display: none;">
+            <p style="font-weight: 600; color: var(--rose-bronze); margin-bottom: 15px;" id="quiz-recommendation-text"></p>
+            <div style="display:flex; justify-content:center;" id="quiz-recommended-product"></div>
+        </div>
     </section>
 
     <section class="products-section" id="products">
-        <h2 class="section-title">المجموعة الفاخرة المميزة</h2>
-        
+        <h2 class="section-title">المجموعة الفاخرة المنفردة</h2>
         <div class="products-grid" id="skeleton-container">
             <div class="skeleton-card skeleton"></div>
             <div class="skeleton-card skeleton"></div>
             <div class="skeleton-card skeleton"></div>
         </div>
-
         <div class="products-grid" id="real-products" style="display: none;">
-            
-            <div class="product-card" data-id="1" data-name="سيروم الذهب والنضارة الملكي" data-price="450" data-img="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80">
-                <span class="product-badge">SALE</span>
-                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80" alt="Serum">
-                <div class="product-name">سيروم الذهب والنضارة الملكي</div>
-                <div class="product-price">450 ج.م <span>650 ج.م</span></div>
-                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
             </div>
+    </section>
 
-            <div class="product-card" data-id="2" data-name="كريم الترطيب المخملي الشامل" data-price="390" data-img="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80">
-                <span class="product-badge">الأكثر مبيعاً</span>
-                <img src="https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80" alt="Cream">
-                <div class="product-name">كريم الترطيب المخملي الشامل</div>
-                <div class="product-price">390 ج.م</div>
-                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
+    <section class="reviews-section">
+        <h2 class="section-title">آراء ملكات لامورا ستور</h2>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p style="font-weight: 600; margin-bottom: 10px;">أستاذة إيمان طارق</p>
+                <p style="color: var(--muted-gray); font-size: 0.95rem;">"سيروم الذهب بجد وهم! فرق جداً في نضارة ونعومة بشرتي من أول أسبوع استخدام، كالعادة أستاذة رواء متميزة جداً في تركيباتها."</p>
             </div>
-
-            <div class="product-card" data-id="3" data-name="غسول رغوي مهدئ للبشرة" data-price="320" data-img="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80">
-                <span class="product-badge">جديد</span>
-                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80" alt="Facial Wash">
-                <div class="product-name">غسول رغوي مهدئ للبشرة</div>
-                <div class="product-price">320 ج.م <span>400 ج.م</span></div>
-                <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
+            <div class="review-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p style="font-weight: 600; margin-bottom: 10px;">أستاذة ميار أحمد</p>
+                <p style="color: var(--muted-gray); font-size: 0.95rem;">"الكريم المخملي روعة روعة، الترطيب بتاعه بيدوم طول اليوم ومبيسيبش أي أثر دهني مزعج.. برافو لامورا ستور."</p>
             </div>
-
         </div>
     </section>
 
@@ -697,14 +516,36 @@
             <h3>حقيبة المشتريات</h3>
             <div class="close-cart" id="closeCart"><i class="fas fa-times"></i></div>
         </div>
-        <div class="cart-items" id="cartItemsContainer">
-            </div>
+        <div class="cart-items" id="cartItemsContainer"></div>
         <div class="cart-footer">
-            <div class="cart-total">
-                <span>الإجمالي:</span>
-                <span id="cartTotalAmount">0 ج.م</span>
-            </div>
+            <div class="cart-total"><span>الإجمالي:</span><span id="cartTotalAmount">0 ج.م</span></div>
             <button class="btn-gold" style="width: 100%; justify-content: center;" id="checkoutBtn"><i class="fab fa-whatsapp"></i> تأكيد الطلب عبر الواتساب</button>
+        </div>
+    </div>
+
+    <div class="thankyou-modal" id="thankyouModal">
+        <div class="thankyou-box">
+            <i class="fas fa-check-circle"></i>
+            <h2 style="font-family: var(--font-serif); margin-bottom: 10px;">شكراً لثقتكِ بـ Lamora Store</h2>
+            <p style="color: var(--muted-gray); margin-bottom: 25px;">جاري تجهيز وتجميع طلبكِ الفاخر، وفتح تطبيق واتساب فوراً لتأكيد عنوان الشحن مع الدعم الفني الملكي.</p>
+            <button class="btn-gold" style="width: 100%; justify-content: center;" onclick="closeThankYouModal()">موافق</button>
+        </div>
+    </div>
+
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-box">
+            <h3 style="font-family: var(--font-serif); margin-bottom: 10px;">لوحة التحكم والربط المباشر</h3>
+            <p style="font-size: 0.85rem; color: var(--muted-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard وإضافة المنتجات</p>
+            <input type="password" id="adminPass" placeholder="••••••">
+            <button class="btn-gold" style="width:100%; justify-content: center; margin-bottom:15px;" onclick="checkAdminPassword()">دخول للوحة</button>
+            
+            <div id="adminControls" style="display:none; border-top: 1px solid var(--soft-beige); padding-top: 15px; text-align: right;">
+                <h4>إضافة منتج جديد لقاعدة البيانات:</h4>
+                <input type="text" id="newProdName" placeholder="اسم المنتج">
+                <input type="number" id="newProdPrice" placeholder="السعر">
+                <input type="text" id="newProdImg" placeholder="رابط الصورة">
+                <button class="btn-gold" style="width: 100%; justify-content: center;" onclick="uploadProductToFirebase()">حفظ وإضافة للموقع</button>
+            </div>
         </div>
     </div>
 
@@ -713,81 +554,182 @@
         <div id="notification-text">يقوم أحد العملاء بتصفح الموقع الآن...</div>
     </div>
 
-    <div class="admin-modal" id="adminModal">
-        <div class="admin-box">
-            <h3 style="font-family: var(--font-serif); margin-bottom: 10px;">لوحة التحكم السرية</h3>
-            <p style="font-size: 0.85rem; color: var(--muted-gray);">أدخل رمز المرور للولوج إلى Firebase Dashboard</p>
-            <input type="password" id="adminPass" placeholder="••••••">
-            <button class="btn-gold" style="width:100%; justify-content: center;" onclick="checkAdminPassword()">دخول</button>
-        </div>
-    </div>
-
     <footer id="footer">
         <div class="footer-logo">LAMORA STORE</div>
         <p style="color: var(--soft-beige); font-size: 0.95rem; margin-bottom: 15px;">Premium Skincare For Radiant Skin</p>
-        <p style="font-size: 0.85rem; color: var(--muted-gray); margin-bottom: 15px;">شحن سريع وآمن خلال 7 أيام عمل لجميع المحافظات 🚚</p>
-        <p style="font-size: 0.95rem; margin-bottom: 20px;">للتواصل المباشر: 01554369459</p>
-        <hr style="border: 0; border-top: 1px solid #222; margin-bottom: 20px;">
-        <p style="font-size: 0.8rem; color: #555;">Developed by AMR GROUP &copy; 2026 | جميع الحقوق محفوظة لمديرة البراند أ/ رواء محمد</p>
+        <p style="font-size: 0.85rem; color: var(--muted-gray); margin-bottom: 15px;">Developed by AMR GROUP &copy; 2026 | مديرة البراند أ/ رواء محمد</p>
     </footer>
 
     <script>
-        // A. Handling Splash Screen & Fake Loader (تم تسريع الوقت لتجربة مستخدم أفضل وأفخم)
+        // ==========================================
+        // 🛠️ التكوين والربط بقاعدة بيانات FIREBASE
+        // ==========================================
+        // يمكنك استبدال الكود التالي ببيانات مشروعك الحقيقي في Firebase لتفعيل الحفظ التلقائي الحقيقي
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "your-app.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-app.appspot.com",
+            messagingSenderId: "your-id",
+            appId: "your-app-id"
+        };
+        
+        // التحقق وتجنب الخطأ في حالة عدم وضع مفاتيح Firebase حقيقية
+        let db = null;
+        try {
+            if(firebaseConfig.apiKey !== "YOUR_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+            }
+        } catch(e) { console.log("Firebase not connected yet."); }
+
+        // مجموعة منتجات محلية افتراضية في حال عدم تفعيل الفايربيز
+        const localProducts = [
+            { id: "1", name: "سيروم الذهب والنضارة الملكي", price: 450, oldPrice: 650, img: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80", badge: "SALE" },
+            { id: "2", name: "كريم الترطيب المخملي الشامل", price: 390, oldPrice: null, img: "https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80", badge: "الأكثر مبيعاً" },
+            { id: "3", name: "غسول رغوي مهدئ للبشرة", price: 320, oldPrice: 400, img: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80", badge: "جديد" }
+        ];
+
+        // Load Products Function
+        function renderProducts() {
+            const container = document.getElementById('real-products');
+            container.innerHTML = '';
+
+            if (db) {
+                // جلب المنتجات بشكل حقيقي من قاعدة بيانات Firestore
+                db.collection("products").get().then((querySnapshot) => {
+                    if(!querySnapshot.empty) {
+                        querySnapshot.forEach((doc) => {
+                            const p = doc.data();
+                            container.innerHTML += createCardHTML(doc.id, p.name, p.price, p.img, p.badge || 'مميز', p.oldPrice);
+                        });
+                        return;
+                    }
+                    loadLocalData(container);
+                }).catch(() => loadLocalData(container));
+            } else {
+                loadLocalData(container);
+            }
+        }
+
+        function loadLocalData(container) {
+            localProducts.forEach(p => {
+                container.innerHTML += createCardHTML(p.id, p.name, p.price, p.img, p.badge, p.oldPrice);
+            });
+            attachCartEvents();
+        }
+
+        function createCardHTML(id, name, price, img, badge, oldPrice) {
+            return `
+                <div class="product-card" data-id="${id}" data-name="${name}" data-price="${price}" data-img="${img}">
+                    ${badge ? `<span class="product-badge">${badge}</span>` : ''}
+                    <img src="${img}" alt="${name}">
+                    <div class="product-name">${name}</div>
+                    <div class="product-price">${price} ج.م ${oldPrice ? `<span>${oldPrice} ج.م</span>` : ''}</div>
+                    <button class="btn-gold add-to-cart-btn"><i class="fas fa-cart-plus"></i> إضافة للسلة</button>
+                </div>
+            `;
+        }
+
+        // ==========================================
+        // 🔄 الأنظمة التفاعلية (السلة، الاختبار، العداد)
+        // ==========================================
         window.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 splash.style.opacity = '0';
                 setTimeout(() => splash.style.display = 'none', 600);
-            }, 2000); // 2 ثانية مثالية جداً
+            }, 1800);
 
             setTimeout(() => {
                 document.getElementById('skeleton-container').style.display = 'none';
                 document.getElementById('real-products').style.display = 'grid';
-            }, 3200);
+                renderProducts();
+            }, 2800);
+
+            startCountdown();
         });
 
-        // B. Mobile Menu Responsive Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navbar = document.getElementById('navbar');
-        menuToggle.addEventListener('click', () => {
-            navbar.classList.toggle('mobile-open');
+        // Hamburger Menu
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('navbar').classList.toggle('mobile-open');
         });
 
-        // C. Interactive Shopping Cart System (النظام الاحترافي الجديد)
+        // Countdown Timer System
+        function startCountdown() {
+            let targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 3); // عرض مؤقت ممتد لـ 3 أيام
+
+            setInterval(() => {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerHTML = d + "<span>أيام</span>";
+                document.getElementById('hours').innerHTML = h + "<span>ساعات</span>";
+                document.getElementById('minutes').innerHTML = m + "<span>دقائق</span>";
+                document.getElementById('seconds').innerHTML = s + "<span>ثواني</span>";
+            }, 1000);
+        }
+
+        // Skincare Quiz System
+        function selectQuizOption(type) {
+            const cards = document.querySelectorAll('.quiz-card');
+            cards.forEach(c => c.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const resultContainer = document.getElementById('quiz-result');
+            const textEl = document.getElementById('quiz-recommendation-text');
+            const productEl = document.getElementById('quiz-recommended-product');
+            
+            resultContainer.style.display = "block";
+
+            if(type === 'dry') {
+                textEl.innerText = "✨ الروتين المرشح لكِ: بشرتك تحتاج إلى ترطيب مخملي عميق وحماية مكثفة لحواجز البشرة.";
+                productEl.innerHTML = createCardHTML('2', 'كريم الترطيب المخملي الشامل', 390, 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?auto=format&fit=crop&w=400&q=80', 'ترشيح ذكي', null);
+            } else if(type === 'oily') {
+                textEl.innerText = "✨ الروتين المرشح لكِ: تحتاجين لتنظيف رغوي مهدئ وموازن لإفراز الدهون والزيوت دون تجفيف.";
+                productEl.innerHTML = createCardHTML('3', 'غسول رغوي مهدئ للبشرة', 320, 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80', 'ترشيح ذكي', 400);
+            } else {
+                textEl.innerText = "✨ الروتين المرشح لكِ: استعيدي نضارة الملوك مع جزيئات سيروم الذهب الغني لتعزيز الكولاجين الفوري.";
+                productEl.innerHTML = createCardHTML('1', 'سيروم الذهب والنضارة الملكي', 450, 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=400&q=80', 'ترشيح ذكي', 650);
+            }
+            attachCartEvents();
+        }
+
+        // Shopping Cart System
         let cart = [];
-        const cartIcon = document.getElementById('cartIcon');
         const cartDrawer = document.getElementById('cartDrawer');
-        const closeCart = document.getElementById('closeCart');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const cartCount = document.getElementById('cartCount');
-        const cartTotalAmount = document.getElementById('cartTotalAmount');
+        
+        document.getElementById('cartIcon').addEventListener('click', () => cartDrawer.classList.add('open'));
+        document.getElementById('closeCart').addEventListener('click', () => cartDrawer.classList.remove('open'));
 
-        // فتح وإغلاق السلة
-        cartIcon.addEventListener('click', () => cartDrawer.classList.add('open'));
-        closeCart.addEventListener('click', () => cartDrawer.classList.remove('open'));
-
-        // إضافة حدث أزرار "إضافة للسلة"
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const card = e.target.closest('.product-card');
-                const id = card.getAttribute('data-id');
-                const name = card.getAttribute('data-name');
-                const price = parseInt(card.getAttribute('data-price'));
-                const img = card.getAttribute('data-img');
-
-                addToCart(id, name, price, img);
-                cartDrawer.classList.add('open'); // فتح السلة تلقائياً للتأكيد
+        function attachCartEvents() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.replaceWith(button.cloneNode(true)); 
             });
-        });
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const card = e.target.closest('.product-card');
+                    const id = card.getAttribute('data-id');
+                    const name = card.getAttribute('data-name');
+                    const price = parseInt(card.getAttribute('data-price'));
+                    const img = card.getAttribute('data-img');
+                    addToCart(id, name, price, img);
+                });
+            });
+        }
 
         function addToCart(id, name, price, img) {
-            const existingItem = cart.find(item => item.id === id);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ id, name, price, img, quantity: 1 });
-            }
+            const existing = cart.find(item => item.id === id);
+            if (existing) { existing.quantity += 1; } 
+            else { cart.push({ id, name, price, img, quantity: 1 }); }
             updateCartUI();
+            cartDrawer.classList.add('open');
         }
 
         function removeFromCart(id) {
@@ -796,17 +738,16 @@
         }
 
         function updateCartUI() {
-            cartItemsContainer.innerHTML = '';
-            let total = 0;
-            let totalItems = 0;
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+            let total = 0, count = 0;
 
             cart.forEach(item => {
                 total += item.price * item.quantity;
-                totalItems += item.quantity;
-
-                cartItemsContainer.innerHTML += `
+                count += item.quantity;
+                container.innerHTML += `
                     <div class="cart-item">
-                        <img src="${item.img}" alt="${item.name}">
+                        <img src="${item.img}">
                         <div class="cart-item-details">
                             <div class="cart-item-name">${item.name}</div>
                             <div class="cart-item-price">${item.price} ج.م × ${item.quantity}</div>
@@ -815,88 +756,84 @@
                     </div>
                 `;
             });
-
-            cartCount.innerText = totalItems;
-            cartTotalAmount.innerText = total + ' ج.م';
+            document.getElementById('cartCount').innerText = count;
+            document.getElementById('cartTotalAmount').innerText = total + ' ج.م';
         }
 
-        // إرسال الطلبات كاملة مجمعة إلى الواتساب
+        // Checkout Button & Thank You Logic
         document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if(cart.length === 0) {
-                alert("سلة المشتريات فارغة!");
-                return;
+            if(cart.length === 0) return alert("سلة المشتريات فارغة!");
+            
+            // تخزين الطلبات في فايربيز إذا كان متصلاً
+            if(db) {
+                db.collection("orders").add({ cart: cart, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
             }
-            
-            let message = "مرحباً Lamora Store، أود طلب المنتجات التالية:\n\n";
-            let total = 0;
-            cart.forEach(item => {
-                message += `• *${item.name}* (الكمية: ${item.quantity}) - السعر: ${item.price * item.quantity} ج.م\n`;
-                total += item.price * item.quantity;
-            });
-            message += `\n💰 *الإجمالي الكلي:* ${total} ج.م\n\nبرجاء تأكيد الطلب والشحن.`;
-            
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/201554369459?text=${encodedMessage}`, '_blank');
+
+            document.getElementById('thankyouModal').classList.add('open');
+            cartDrawer.classList.remove('open');
         });
 
-        // D. Live Social Proof (تغيير الزيارات والمحافظات كل 10 ثوانٍ)
-        const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.', 'رنا ط.', 'نور هـ.'];
-        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا', 'الجيزة', 'الإسماعيلية'];
-        const products = ['سيروم الذهب الملكي', 'كريم الترطيب المخملي', 'غسول رغوي مهدئ'];
-        
-        function showLiveNotification() {
-            const notification = document.getElementById('live-notification');
-            const textEl = document.getElementById('notification-text');
+        function closeThankYouModal() {
+            document.getElementById('thankyouModal').classList.remove('open');
+            // إعداد رسالة الواتس اب الاحترافية المجمعة للعميلة
+            let msg = "مرحباً Lamora Store، أود تأكيد طلب المنتجات الفاخرة التالية:\n\n";
+            let tot = 0;
+            cart.forEach(i => { msg += `• *${i.name}* (الكمية: ${i.quantity}) - ${i.price * i.quantity} ج.م\n`; tot += i.price * i.quantity; });
+            msg += `\n💰 *الإجمالي الكلي:* ${tot} ج.م\n\nبرجاء المتابعة لشحن المنتجات الملكية ✨`;
             
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomCity = cities[Math.floor(Math.random() * cities.length)];
-            const randomProduct = products[Math.floor(Math.random() * products.length)];
-            const randomNum = Math.floor(100 + Math.random() * 900);
-
-            const templates = [
-                `✨ اشترت أستاذة (${randomName} من ${randomCity}) "${randomProduct}" قبل قليل.`,
-                `🔥 عميل من (${randomCity}) يقوم بتصفح "${randomProduct}" الآن.`,
-                `⭐ قيمت أستاذة (${randomName}) بخمس نجوم: "المنتج رائع وفرق في نضارة بشرتي جداً!"`
-            ];
-
-            textEl.innerHTML = templates[Math.floor(Math.random() * templates.length)];
-            notification.classList.add('show');
-
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 4000);
+            cart = [];
+            updateCartUI();
+            window.open(`https://wa.me/201554369459?text=${encodeURIComponent(msg)}`, '_blank');
         }
-        setInterval(showLiveNotification, 10000);
 
-        // E. Hidden Admin Easter Egg
+        // ==========================================
+        // 🔒 لوحة الإشراف والتحكم السرية والربط
+        // ==========================================
         let clickCount = 0;
-        const logoBtn = document.getElementById('header-logo');
-        
-        logoBtn.addEventListener('click', () => {
+        document.getElementById('header-logo').addEventListener('click', () => {
             clickCount++;
-            if (clickCount === 3) {
-                document.getElementById('adminModal').classList.add('open');
-                clickCount = 0;
-            }
+            if (clickCount === 3) { document.getElementById('adminModal').classList.add('open'); clickCount = 0; }
             setTimeout(() => { clickCount = 0; }, 2000);
         });
 
         function checkAdminPassword() {
             const pass = document.getElementById('adminPass').value;
             if (pass === "772007") {
-                alert("تم التحقق بنجاح! جاري تحويلك إلى لوحة تحكم Firebase المربوطة بـ Amr Group.");
-                document.getElementById('adminModal').classList.remove('open');
+                alert("تم التحقق! لوحة التحكم جاهزة ومفتوحة للعمل.");
+                document.getElementById('adminControls').style.display = 'block';
+            } else { alert("رمز المرور خاطئ!"); }
+        }
+
+        function uploadProductToFirebase() {
+            const name = document.getElementById('newProdName').value;
+            const price = parseInt(document.getElementById('newProdPrice').value);
+            const img = document.getElementById('newProdImg').value;
+
+            if(!name || !price || !img) return alert("يرجى ملء جميع الحقول");
+
+            if(db) {
+                db.collection("products").add({ name, price, img, badge: "جديد" }).then(() => {
+                    alert("تم حفظ المنتج بنجاح في Firestore وقاعدة البيانات!");
+                    renderProducts();
+                });
             } else {
-                alert("رمز المرور غير صحيح!");
+                // إضافة محلية مؤقتة للتأكيد البصري للمستخدم في غياب الـ SDK الفعلي
+                localProducts.push({ id: Date.now().toString(), name, price, img, badge: "جديد", oldPrice: null });
+                alert("تمت الإضافة للمصفوفة المحلية بنجاح! قم بربط مشروع Firebase الحقيقي ليتم الحفظ السحابي الثابت.");
+                renderProducts();
             }
         }
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('adminModal');
-            if (event.target == modal) {
-                modal.classList.remove('open');
-            }
-        }
+        // Live Social Notifications Proof
+        const names = ['منى أ.', 'سارة م.', 'ياسمين ح.', 'فاطمة ع.'];
+        const cities = ['الإسكندرية', 'القاهرة', 'المنصورة', 'طنطا'];
+        setInterval(() => {
+            const notification = document.getElementById('live-notification');
+            const txt = document.getElementById('notification-text');
+            notification.classList.add('show');
+            txt.innerText = `✨ اشترت أستاذة (${names[Math.floor(Math.random()*4)]} من ${cities[Math.floor(Math.random()*4)]}) كورس النضارة قبل قليل.`;
+            setTimeout(() => notification.classList.remove('show'), 4000);
+        }, 12000);
     </script>
 </body>
 </html>
